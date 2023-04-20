@@ -38,29 +38,30 @@ function home(navigateTo) {
 
   // Inicio con Google
   const loginGoogle = document.createElement('button');
-  loginGoogle.setAttribute('id', 'loginGoogle-b');
   loginGoogle.textContent = 'Inicia sesión con Google';
   loginGoogle.setAttribute('id', 'loginGoogle-b');
-  loginGoogle.textContent = 'Inicia sesión con Google';
   loginGoogle.addEventListener('click', (e) => {
     e.preventDefault();
     loginWithGoogle();
     console.log('si sirvo');
   });
 
-  // Iniciar sesión
+  // Iniciar con Microsoft
   loginMicrosoft.setAttribute('id', 'loginMicrosoft');
   loginMicrosoft.setAttribute('class', 'loginMicrosoft-b');
   loginMicrosoft.textContent = 'Inicia sesión con Microsoft';
-  loginTwitter.setAttribute('id', 'loginTwitter');
 
+  // Iniciar con twitter
   loginTwitter.setAttribute('class', 'loginTwitter-b');
+  loginTwitter.setAttribute('id', 'loginTwitter');
+  loginTwitter.textContent = 'Inicia sesión con Twitter';
   loginTwitter.addEventListener('click', (e) => {
-    loginTwitter.textContent = 'Inicia sesión con Twitter';
     e.preventDefault();
     loginWithTwitter();
     console.log('si sirvo');
   });
+
+  // Iniciar sesión
   login.setAttribute('id', 'login-b');
   login.textContent = 'INICIAR SESIÓN';
   mailUser.textContent = 'Correo electrónico:';

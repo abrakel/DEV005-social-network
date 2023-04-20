@@ -75,7 +75,9 @@ button {
 /* Estilos para el botón cuando el cursor está sobre él */
 button:hover,
 #loginGoogle-b:hover,
-#login-b:hover {
+#login-b:hover,
+#loginTwitter:hover,
+#loginMicrosoft:hover {
     background-color: #3e8e41;
 }
 
@@ -95,6 +97,8 @@ form {
 
 #loginGoogle-b,
 #login-b,
+#loginTwitter,
+#loginMicrosoft,
 input {
     border-style: solid;
     border-color: var(---ColorTerciario);
@@ -110,19 +114,17 @@ input {
     min-width: 244px;
 }
 
-#loginGoogle-b {
+#loginGoogle-b,
+#login-b,
+#loginTwitter,
+#loginMicrosoft {
     background-color: var(---ColorBotones);
-    margin-bottom: 15px;
-    margin-top: 25px;
+    margin-bottom: 0px;
+    margin-top: 7px;
     min-width: 250px;
+    padding: 10px;
 }
 
-#login-b {
-    background-color: var(---ColorBotones);
-    color: var(---colorFondo);
-    margin-bottom: 15px;
-    min-width: 250px;
-}
 
 .divhome {
     display: inline-flex;
@@ -168,9 +170,7 @@ input {
 #name,
 #lastname,
 #password,
-#mail,
-#address,
-#birthday {
+#mail {
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
