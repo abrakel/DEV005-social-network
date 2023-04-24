@@ -1,67 +1,46 @@
 import {
-  signInWithPopup, GoogleAuthProvider, TwitterAuthProvider, createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+
 } from 'firebase/auth';
 import { auth } from './firebaseConfig.js';
 
-/* ---------------------------- Registro---------------------------------------------*/
+/* ---------------------------- Ingreso ---------------------------------------------*/
 
-export const autenticacion = () => {
-  const email = document.getElementById('mail').value;
-  const password = document.getElementById('password').value;
-
-  createUserWithEmailAndPassword(auth, email, password)
+export const revision = (email, password) => new Promise((resolve, reject) => {
+  signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      alert('El usuario se registro con exito');
       // Signed in
-      const user = userCredential.user;
-      user.textContent = '';
-      // ...
-      document.getElementById('mail').value = '';
-      document.getElementById('password').value = '';
+      resolve(userCredential);
     })
     .catch((error) => {
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Usuario existente');
-      } else if (error.code === 'auth/invalid-email') {
+      if (error.code === 'auth/invalid-email') {
         alert('Correo electrónico inválido');
-      } else if (error.code === 'auth/weak-password') {
-        alert('La contraseña debe tener al menos 6 caracteres');
-      } else {
-        alert('Ha ocurrido un error');
+      } if (error.code === 'auth/wrong-password') {
+        // La contraseña es incorrecta
+        alert('La contraseña es incorrecta. Por favor, intenta de nuevo.');
       }
-      document.getElementById('mail').value = '';
-      document.getElementById('password').value = '';
+      reject(error.code);
     });
-};
-/* ---------------------------- Login con Google---------------------------------------------*/
+});
 
-export const loginWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      console.log('Comentario', user);
-      // ...
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorMessage = error.message;
-      console.log('erorrrrrr', errorMessage);
-      // ...
-    });
-};
+/* ---------------------------- Registro---------------------------------------------*/
 
-/* ---------------------------- Login con Twitter---------------------------------------------*/
-export const loginWithTwitter = () => {
-  const provider = new TwitterAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      console.log(user);
-      // ..
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorMessage = error.message;
-      console.log('erorrrrrr', errorMessage);
-      // ...
+export const autenticacion = (email, password) => new Promise((resolve, reject) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      resolve(userCredential);
+    })
+    .catch((error) => {
+      let mensaje = 'Ha ocurrido un error';
+      if (error.code === 'auth/email-already-in-use') {
+        mensaje = 'Usuario existente';
+      } else if (error.code === 'auth/invalid-email') {
+        mensaje = 'Correo electrónico inválido';
+      } else if (error.code === 'auth/weak-password') {
+        mensaje = 'La contraseña debe tener al menos 6 caracteres';
+      }
+
+      reject(mensaje);
     });
-};
+});

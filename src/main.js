@@ -3,6 +3,7 @@ import error from './components/error.js';
 import muro from './components/muro.js';
 import registro from './components/registro.js';
 import './lib/firebaseConfig.js';
+import './lib/auth.js';
 
 // Root
 const root = document.getElementById('root');
