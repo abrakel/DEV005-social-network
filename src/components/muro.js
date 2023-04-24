@@ -2,8 +2,12 @@ function muro(navigateTo) {
   const section = document.createElement('section');
   const title = document.createElement('h1');
   title.textContent = 'Muro';
+  title.setAttribute = ('class', 'muro');
+
+  /* ---------------------------- Cerrar Sesión ---------------------------------------------*/
   const buttonReturn = document.createElement('button');
-  buttonReturn.textContent = 'inicio';
+  buttonReturn.textContent = 'Cerrar Sesión';
+  buttonReturn.setAttribute = ('class', 'sesionfin');
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
