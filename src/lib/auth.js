@@ -1,7 +1,6 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-
 } from 'firebase/auth';
 import { auth } from './firebaseConfig.js';
 
@@ -40,7 +39,6 @@ export const autenticacion = (email, password) => new Promise((resolve, reject) 
       } else if (error.code === 'auth/weak-password') {
         mensaje = 'La contraseña debe tener al menos 6 caracteres';
       }
-
       reject(mensaje);
     });
 });

@@ -76,7 +76,6 @@ button {
 button:hover,
 #loginGoogle-b:hover,
 #login-b:hover,
-#loginTwitter:hover,
 #loginMicrosoft:hover {
     background-color: #3e8e41;
 }
@@ -97,7 +96,6 @@ form {
 
 #loginGoogle-b,
 #login-b,
-#loginTwitter,
 #loginMicrosoft,
 input {
     border-style: solid;
@@ -116,7 +114,6 @@ input {
 
 #loginGoogle-b,
 #login-b,
-#loginTwitter,
 #loginMicrosoft {
     background-color: var(---ColorBotones);
     margin-bottom: 0px;

@@ -1,3 +1,5 @@
+import { getAuth, signOut } from 'firebase/auth';
+
 function muro(navigateTo) {
   const section = document.createElement('section');
   const title = document.createElement('h1');
@@ -9,7 +11,16 @@ function muro(navigateTo) {
   buttonReturn.textContent = 'Cerrar Sesión';
   buttonReturn.setAttribute = ('class', 'sesionfin');
   buttonReturn.addEventListener('click', () => {
-    navigateTo('/');
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        localStorage.clear(); // borra los datos del usuario
+        history.replaceState(null, '', '/'); // limpia el historial del navegador
+        navigateTo('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 
   const article = document.createElement('article');

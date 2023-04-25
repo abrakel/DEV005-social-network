@@ -25,7 +25,7 @@ function registro(navigateTo) {
   mail.addEventListener('blur', () => {
     const email = mail.value;
     if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
-      alert('Introduzca una dirección de correo electrónico válida');
+      alert('Introduzca una dirección de correo electrónico válidas');
       mail.value = '';
     }
   });
@@ -62,14 +62,13 @@ function registro(navigateTo) {
         const user = userCredential.user;
         user.textContent = '';
         // ...
-        document.getElementById('mail').value = '';
-        document.getElementById('password').value = '';
+        mail.value = '';
+        password.value = '';
       })
       .catch((error) => {
         alert(error);
-
-        document.getElementById('mail').value = '';
-        document.getElementById('password').value = '';
+        mail.value = '';
+        password.value = '';
       });
 
     console.log('si sirvo');
