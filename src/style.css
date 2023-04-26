@@ -89,6 +89,8 @@ form {
 
 #loginGoogle-b,
 #login-b,
+#loginTwitter,
+#loginMicrosoft,
 input {
     border-style: solid;
     border-color: var(---ColorTerciario);

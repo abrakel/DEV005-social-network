@@ -7,7 +7,6 @@ import './lib/auth.js';
 
 // Root
 const root = document.getElementById('root');
-
 // Rutas
 const routes = [
   { path: '/', component: home },

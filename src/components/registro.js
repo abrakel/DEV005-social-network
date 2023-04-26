@@ -38,10 +38,8 @@ function registro(navigateTo) {
   const passwordLabel = document.createElement('label');
   const password = document.createElement('input');
   passwordLabel.textContent = 'Contraseña:';
-  passwordLabel.textContent = 'Contraseña:';
   passwordLabel.setAttribute('for', 'password');
   password.id = 'password';
-  password.minLength = 6;
   password.minLength = 6;
   password.maxLength = 10;
   password.type = 'password';
