@@ -52,7 +52,6 @@ h1,
 label {
     font-size: 12px;
     font-weight: 400;
-    font-size: 13px;
     margin-bottom: 3px;
     margin-top: 10px;
     margin-left: auto;
@@ -60,6 +59,8 @@ label {
     min-width: 250px;
     font-family: var(---FontPrincipal);
 }
+
+
 
 /* Estilos para el botón */
 button {
@@ -70,14 +71,6 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin: 5px;
-}
-
-/* Estilos para el botón cuando el cursor está sobre él */
-button:hover,
-#loginGoogle-b:hover,
-#login-b:hover,
-#loginMicrosoft:hover {
-    background-color: #3e8e41;
 }
 
 /*-------------------Página Principal--------------------------------*/
@@ -96,7 +89,6 @@ form {
 
 #loginGoogle-b,
 #login-b,
-#loginMicrosoft,
 input {
     border-style: solid;
     border-color: var(---ColorTerciario);
@@ -107,20 +99,27 @@ input {
     margin-left: auto;
     margin-right: auto;
 }
-
-input {
-    min-width: 244px;
-}
-
 #loginGoogle-b,
-#login-b,
-#loginMicrosoft {
+#login-b {
     background-color: var(---ColorBotones);
     margin-bottom: 0px;
     margin-top: 7px;
     min-width: 250px;
     padding: 10px;
 }
+
+/* Estilos para el botón cuando el cursor está sobre él */
+button:hover,
+#loginGoogle-b:hover,
+#login-b:hover {
+    background-color: #3e8e41;
+}
+
+
+input {
+    min-width: 244px;
+}
+
 
 
 .divhome {
@@ -136,11 +135,10 @@ input {
     border-style: none;
     color: var(---ColorSecundario);
     font-size: 11.5px;
-    margin-top: 2px;
+    margin-top: -12px;
     padding: 0;
     width: 50%;
-    margin-top: -12px;
-}
+    }
 
 .register-b {
     text-align: left;
@@ -191,6 +189,10 @@ input {
     position: relative;
     color: #2f0a0a;
     background-color: var(---colorFondo);
+}
+
+.blue .postcard__bar {
+    background-color: #0076bd;
 }
 
 a,
@@ -336,12 +338,9 @@ a:hover {
 
 /* COLORS */
 
+
 .blue .postcard__title:hover {
     color: #0076bd;
-}
-
-.blue .postcard__bar {
-    background-color: #0076bd;
 }
 
 .blue::before {

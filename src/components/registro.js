@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import { autenticacion } from '../lib/auth';
 
 function registro(navigateTo) {
@@ -46,14 +48,12 @@ function registro(navigateTo) {
   password.placeholder = 'Enter a password';
 
   /* ----------- Botón regreso ---------------------*/
-  /* ----------- Botón regreso ---------------------*/
   const buttonReturn = document.createElement('button');
   buttonReturn.textContent = 'Regresar';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
 
-  /* ----------- Botón de Registro ---------------------*/
   /* ----------- Botón de Registro ---------------------*/
   const register = document.createElement('button');
   register.id = 'regist';

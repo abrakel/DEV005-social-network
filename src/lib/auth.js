@@ -13,13 +13,13 @@ export const revision = (email, password) => new Promise((resolve, reject) => {
       resolve(userCredential);
     })
     .catch((error) => {
+      let mensaje = 'Ha ocurrido un error';
       if (error.code === 'auth/invalid-email') {
-        alert('Correo electrónico inválido');
+        mensaje = 'Correo electrónico inválido';
       } if (error.code === 'auth/wrong-password') {
-        // La contraseña es incorrecta
-        alert('La contraseña es incorrecta. Por favor, intenta de nuevo.');
+        mensaje = 'La contraseña es incorrecta. Por favor, intenta de nuevo.';
       }
-      reject(error.code);
+      reject(mensaje);
     });
 });
 

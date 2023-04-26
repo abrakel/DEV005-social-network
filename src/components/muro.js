@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-restricted-globals */
 import { getAuth, signOut } from 'firebase/auth';
 
 function muro(navigateTo) {
