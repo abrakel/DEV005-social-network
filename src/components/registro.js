@@ -1,20 +1,15 @@
 import { autenticacion } from '../lib/auth';
-
 function registro(navigateTo) {
   const section = document.createElement('section');
   section.class = 'formulario';
-
   /* Elementos */
   const form1 = document.createElement('div');
   form1.classList.add('register');
-
   const title = document.createElement('h2');
   title.classList.add('petregister');
-
   const img = document.createElement('img');
   img.id = 'imagen';
   img.src = '../Img/logo.jpg';
-
   /* ----------- Correo ---------------------*/
   const mailLabel = document.createElement('label');
   const mail = document.createElement('input');
@@ -31,27 +26,22 @@ function registro(navigateTo) {
   });
   document.body.appendChild(mailLabel);
   document.body.appendChild(mail);
-
   /* ----------- Contraseña ---------------------*/
   const passwordLabel = document.createElement('label');
   const password = document.createElement('input');
   passwordLabel.textContent = 'Contraseña:';
-  passwordLabel.textContent = 'Contraseña:';
   passwordLabel.setAttribute('for', 'password');
   password.id = 'password';
-  password.minLength = 6;
   password.minLength = 6;
   password.maxLength = 10;
   password.type = 'password';
   password.placeholder = 'Enter a password';
-
   /* ----------- Botón regreso ---------------------*/
   const buttonReturn = document.createElement('button');
   buttonReturn.textContent = 'Regresar';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
-
   /* ----------- Botón de Registro ---------------------*/
   const register = document.createElement('button');
   register.id = 'regist';
@@ -72,12 +62,9 @@ function registro(navigateTo) {
         mail.value = '';
         password.value = '';
       });
-
     console.log('si sirvo');
   });
-
   title.textContent = 'Pet Registro';
-
   section.append(img, form1);
   form1.append(
     title,
@@ -92,5 +79,4 @@ function registro(navigateTo) {
   );
   return section;
 }
-
 export default registro;

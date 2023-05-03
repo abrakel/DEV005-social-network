@@ -4,8 +4,8 @@ import muro from './components/muro.js';
 import registro from './components/registro.js';
 import './lib/firebaseConfig.js';
 
+// Root
 const root = document.getElementById('root');
-
 // Rutas
 const routes = [
   { path: '/', component: home },

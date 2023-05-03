@@ -75,7 +75,9 @@ button {
 /* Estilos para el botón cuando el cursor está sobre él */
 button:hover,
 #loginGoogle-b:hover,
-#login-b:hover {
+#login-b:hover,
+#loginTwitter:hover,
+#loginMicrosoft:hover {
     background-color: #3e8e41;
 }
 
@@ -95,6 +97,8 @@ form {
 
 #loginGoogle-b,
 #login-b,
+#loginTwitter,
+#loginMicrosoft,
 input {
     border-style: solid;
     border-color: var(---ColorTerciario);
@@ -110,19 +114,17 @@ input {
     min-width: 244px;
 }
 
-#loginGoogle-b {
+#loginGoogle-b,
+#login-b,
+#loginTwitter,
+#loginMicrosoft {
     background-color: var(---ColorBotones);
-    margin-bottom: 15px;
-    margin-top: 25px;
+    margin-bottom: 0px;
+    margin-top: 7px;
     min-width: 250px;
+    padding: 10px;
 }
 
-#login-b {
-    background-color: var(---ColorBotones);
-    color: var(---colorFondo);
-    margin-bottom: 15px;
-    min-width: 250px;
-}
 
 .divhome {
     display: inline-flex;
@@ -140,6 +142,7 @@ input {
     margin-top: 2px;
     padding: 0;
     width: 50%;
+    margin-top: -12px;
 }
 
 .register-b {
@@ -169,8 +172,9 @@ input {
 #lastname,
 #password,
 #mail,
-#address,
-#birthday {
+#mailUser,
+#passUser,
+#password1 {
     padding: 10px;
     margin-bottom: 15px;
     box-sizing: border-box;
@@ -179,54 +183,75 @@ input {
 
 /*-------------------Página Muro--------------------------------*/
 
-/* Cards */
-.postcard {
-    flex-wrap: wrap;
-    display: flex;
-    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
-    border-radius: 10px;
-    margin: 0 0 2rem 0;
-    overflow: hidden;
-    position: relative;
-    color: #2f0a0a;
-    background-color: var(---colorFondo);
-}
-
-a,
-a:hover {
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
-}
-
 .container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
     max-width: 960px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-.postcard a {
-    color: inherit;
-}
-
-.postcard h1,
-.postcard .h1 {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-.postcard .postcard__title {
-    font-size: 1.75rem;
-}
-
-.postcard .postcard__img {
-    max-height: 180px;
+#formPost {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    object-fit: cover;
-    position: relative;
+    height: auto;
+    background-color: var(---colorFondo);
+    border-style: none;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-radius: 10px;
 }
 
-.postcard .postcard__bar {
+.divFormName, .divFormGender,
+.divFormAge, .divFormDescription{
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    width: 100%;
+}
+
+#btnSend{
+    width: auto;
+    margin: 6% 6% 6% auto;
+}
+
+.div-form-name, .div-form-gender,
+.div-form-age, .div-form-description{
+    margin-top: 10px;
+}
+
+.container-post{
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-radius: 10px;
+    margin: 50px 0 50px 0;
+    overflow: hidden;
+    position: relative;
+    background-color: var(---colorFondo);
+}
+
+.title-post{
+    color: #2f0a0a;
+    font-weight: 500;
+    font-size: large;
+}
+
+.title-post, .gender-post, 
+.age-post, .description-post{
+    display: flex;
+    margin: 0 6% 0 6%;
+    text-align: justify;
+}
+
+.age-post{
+    margin-top: 2px;
+}
+
+.postcard .postcard_bar {
     width: 50px;
     height: 10px;
     margin: 10px 0;
@@ -235,35 +260,33 @@ a:hover {
     transition: width 0.2s ease;
 }
 
-.postcard .postcard__text {
-    padding: 1.5rem;
-    position: relative;
+.description-post{
+    margin-top: 20px;
+}
+
+.buttons-post{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    position: relative;
+    width: 70%;
+    margin: 2% auto 2% auto;
 }
 
-.postcard .postcard__preview-txt {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: justify;
-    height: 100%;
+.delete-button, .edit-button,
+.like-button{
+    width: 33%;
+    background-color: white;
+    color: black;
+    border-style: none;
 }
 
-.postcard:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(-70deg, #424242, transparent 50%);
-    opacity: 1;
-    border-radius: 10px;
-}
 
-.postcard:hover .postcard__bar {
-    width: 100px;
-}
+
+
+
+
+
+
 
 @media screen and (min-width: 769px) {
     .postcard {

@@ -11,10 +11,12 @@ import {
 
 import { db } from './firebaseConfig.js';
 
-const saveTask = async (taskTitle, taskDescription) => {
+const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
   try {
     const docRef = await addDoc(collection(db, 'tasks'), {
       taskTitle,
+      taskGender,
+      taskAge,
       taskDescription,
     });
     console.log('Document written with ID: ', docRef.id);
@@ -69,14 +71,18 @@ const updateTask = async (id, updateTask) => {
 };
 
 export const submitForm = async (editStatus, id) => {
-  const taskTitle = document.querySelector('.task-title');
+  const taskTitle = document.querySelector('.task-input-title');
+  const taskGender = document.querySelector('.select-gender');
+  const taskAge = document.querySelector('.task-age')
   const taskDescription = document.querySelector('.task-description');
 
   if (!editStatus) {
-    await saveTask(taskTitle.value, taskDescription.value);
+    await saveTask(taskTitle.value, taskGender.value, taskAge.value, taskDescription.value);
   } else {
     await updateTask(id, {
       taskTitle: taskTitle.value,
+      taskGender: taskGender.value,
+      taskAge: taskAge.value,
       taskDescription: taskDescription.value,
     });
     const btnTaskForm = document.querySelector('#btnSend');
@@ -85,6 +91,8 @@ export const submitForm = async (editStatus, id) => {
 
   // Limpiar los campos del formulario
   taskTitle.value = '';
+  taskGender.value = ''; 
+  taskAge.value = '';
   taskDescription.value = '';
 
   await getTasks();
