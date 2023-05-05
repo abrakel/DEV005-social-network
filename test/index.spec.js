@@ -39,7 +39,7 @@ describe('Pruebas para la función de autenticación', () => {
   });
 });
 
-/* ----------------------- Test Logi ----------------------*/
+/* ----------------------- Test Login Google ----------------------*/
 
 describe('Button Google1', () => {
   test('Login with Google call function navigateTo', () => {
@@ -61,19 +61,44 @@ describe('Pruebas para la función de login con Google', () => {
       email: 'johndoe@example.com',
       uid: '123456789',
     };
-    const credentialMock = {
-      accessToken: 'mockAccessToken',
-      providerId: 'google.com',
-      signInMethod: 'google.com',
-    };
-    const signInWithPopupMock = jest.fn().mockResolvedValue({
-      user: userMock,
-      credential: credentialMock,
-    });
-
     // Reemplazamos la implementación de signInWithPopup con nuestra función simulada
     jest.spyOn(auth, 'loginGoogle1').mockImplementationOnce(() => jest.fn());
     // Llamamos a la función que estamos probando
     const result = await loginGoogle1();
+  });
+});
+
+/* ----------------------- Test función revision ' ----------------------*/
+describe('revision function', () => {
+  // Test para revisión de credenciales correctas
+  test('should resolve with userCredential when email and password are correct', async () => {
+    const email = 'johndoe@example.com';
+    const password = 'password123';
+
+    const result = await revision(email, password);
+    expect(result).toBeTruthy();
+  });
+
+  // Test para revisión de credenciales incorrectas
+  test('should reject with error message when email and password are incorrect', async () => {
+    const email = 'johndoe@example.com';
+    const password = 'wrongpassword';
+
+    try {
+      await revision(email, password);
+    } catch (error) {
+      expect(error).toBe('La contraseña es incorrecta. Por favor, intenta de nuevo.');
+    }
+  });
+
+  // Test para revisión de correo electrónico inválido
+  test('should reject with "Correo electrónico inválido" message when email is invalid', async () => {
+    const email = 'invalidemail';
+    const password = 'password123';
+    try {
+      await revision(email, password);
+    } catch (error) {
+      expect(error).toBe('Correo electrónico inválido');
+    }
   });
 });
