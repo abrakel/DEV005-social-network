@@ -27,7 +27,8 @@ function registro(navigateTo) {
   mail.addEventListener('blur', () => {
     const email = mail.value;
     if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
-      alert('Introduzca una dirección de correo electrónico válidas');
+      const mensaje = document.createElement('span');
+      mensaje.textContent = ('Introduzca una dirección de correo electrónico válida', mail);
       mail.value = '';
     }
   });
@@ -45,8 +46,27 @@ function registro(navigateTo) {
   password.type = 'password';
   password.placeholder = 'Enter a password';
 
+  const botoncontraseña = document.createElement('button');
+  botoncontraseña.setAttribute('class', 'boton2');
+  botoncontraseña.textContent = 'Mostrar contraseña';
+
+  // Añadimos el botón a la etiqueta de la contraseña
+  passwordLabel.appendChild(botoncontraseña);
+
+  // Añadimos el EventListener al botón
+  botoncontraseña.addEventListener('click', () => {
+    if (password.type === 'password') {
+      password.type = 'text';
+      botoncontraseña.textContent = 'Ocultar contraseña';
+    } else {
+      password.type = 'password';
+      botoncontraseña.textContent = 'Mostrar contraseña';
+    }
+  });
+
   /* ----------- Botón regreso ---------------------*/
   const buttonReturn = document.createElement('button');
+  buttonReturn.id = 'back';
   buttonReturn.textContent = 'Regresar';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -68,7 +88,8 @@ function registro(navigateTo) {
         password.value = '';
       })
       .catch((error) => {
-        alert(error);
+        const mensaje1 = document.createElement('span');
+        mensaje1.textContent = error;
         mail.value = '';
         password.value = '';
       });
@@ -87,6 +108,7 @@ function registro(navigateTo) {
     mail,
     passwordLabel,
     password,
+    botoncontraseña,
     register,
     buttonReturn,
   );

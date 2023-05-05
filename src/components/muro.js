@@ -95,15 +95,48 @@ function muro(navigateTo) {
   descriptionInput.name = 'description';
   descriptionLabel.appendChild(descriptionInput);
 
+  // modal
+
+  /* const modal = document.createElement('div');
+  modal.setAttribute('class', 'modal');
+  const modalContent = document.createElement('div');
+  modalContent.setAttribute('class', 'modal-content');
+  const text = document.createElement('span');
+  text.textContent = 'Completa todos los campos para postear';
+  const close = document.createElement('button');
+  close.setAttribute('button', 'closeModal-b');
+  close.textContent = 'Cerrar';
+  modalContent.append(text, close);
+  modal.appendChild(modalContent);
+
+  function showModal() {
+    modal.style.display = 'block';
+    close.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    window.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  } */
+
   // Crea el botón de envío
-  const submitBtn = document.createElement('button');
+
+  /* const submitBtn = document.createElement('button');
+  submitBtn.id = 'btnSend';
   submitBtn.type = 'submit';
   submitBtn.textContent = 'Enviar';
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    /* submitForm(e); */
+    // Para no admitir un post vacío
+    if (titleInput.value === '' || descriptionInput.value === '') {
+      section.append(modal);
+      showModal();
+    } else {
+      submitForm(e);
+    }
   });
-
   // Agrega los elementos al formulario
   form.appendChild(titleLabel);
   form.appendChild(descriptionLabel);
@@ -118,7 +151,7 @@ function muro(navigateTo) {
   taskContainer.appendChild(taskList);
 
   // Agrega el contenedor de tareas a la página
-  document.body.appendChild(taskContainer);
+  document.body.appendChild(taskContainer); */
 
   // Agrega un EventListener para el envío del formulario
 

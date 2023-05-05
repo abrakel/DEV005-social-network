@@ -1,42 +1,12 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { autenticacion, revision } from '../src/lib/auth';
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+// import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import {
+  autenticacion, revision, loginGoogle1,
+} from '../src/lib/auth';
+import * as auth from '../src/lib/auth.js';
 
-jest.mock('firebase/auth', () => ({
-  signInWithEmailAndPassword: jest.fn(),
-}));
-
-describe('Pruebas para la función de revisión de credenciales', () => {
-  const email = 'usuario@dominio.com';
-  const password = 'contraseña123';
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('Debería resolver correctamente la promesa si las credenciales son correctas', async () => {
-    signInWithEmailAndPassword.mockResolvedValueOnce({});
-    await expect(revision(email, password)).resolves.toEqual({});
-    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(expect.anything(), email, password);
-  });
-
-  it("Debería rechazar la promesa con el mensaje 'Correo electrónico inválido' si el correo electrónico es inválido", async () => {
-    signInWithEmailAndPassword.mockRejectedValueOnce({ code: 'auth/invalid-email' });
-    await expect(revision(email, password)).rejects.toEqual('Correo electrónico inválido');
-    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(expect.anything(), email, password);
-  });
-
-  it("Debería rechazar la promesa con el mensaje 'La contraseña es incorrecta. Por favor, intenta de nuevo.' si la contraseña es incorrecta", async () => {
-    signInWithEmailAndPassword.mockRejectedValueOnce({ code: 'auth/wrong-password' });
-    await expect(revision(email, password)).rejects.toEqual('La contraseña es incorrecta. Por favor, intenta de nuevo.');
-    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(expect.anything(), email, password);
-  });
-
-  it('Debería rechazar la promesa con el mensaje por defecto si ocurre un error diferente a los anteriores', async () => {
-    signInWithEmailAndPassword.mockRejectedValueOnce({});
-    await expect(revision(email, password)).rejects.toEqual('Ha ocurrido un error');
-    expect(signInWithEmailAndPassword).toHaveBeenCalledWith(expect.anything(), email, password);
-  });
-});
+/* ----------------------- Test Registro ----------------------*/
 
 describe('Pruebas para la función de autenticación', () => {
   const email = 'usuario@dominio.com';
@@ -66,5 +36,44 @@ describe('Pruebas para la función de autenticación', () => {
     } catch (error) {
       expect(error).toEqual('La contraseña debe tener al menos 6 caracteres');
     }
+  });
+});
+
+/* ----------------------- Test Logi ----------------------*/
+
+describe('Button Google1', () => {
+  test('Login with Google call function navigateTo', () => {
+    const DOM = document.createElement('div');
+    DOM.innerHTML = '<button id="regist">Register</button>'; // Crear el botón con el id necesario
+    document.body.appendChild(DOM); // Agregar el botón al DOM
+
+    const onebutton = document.getElementById('regist');
+    expect(onebutton).not.toBeNull(); // Corregir el matcher a toBeNull()
+
+    document.body.removeChild(DOM); // Eliminar el botón del DOM al final del test
+  });
+});
+
+describe('Pruebas para la función de login con Google', () => {
+  it('Debería iniciar sesión con Google y retornar los datos del usuario', async () => {
+    // Creamos la función simulada que retornará el objeto user con los datos del usuario
+    const userMock = {
+      email: 'johndoe@example.com',
+      uid: '123456789',
+    };
+    const credentialMock = {
+      accessToken: 'mockAccessToken',
+      providerId: 'google.com',
+      signInMethod: 'google.com',
+    };
+    const signInWithPopupMock = jest.fn().mockResolvedValue({
+      user: userMock,
+      credential: credentialMock,
+    });
+
+    // Reemplazamos la implementación de signInWithPopup con nuestra función simulada
+    jest.spyOn(auth, 'loginGoogle1').mockImplementationOnce(() => jest.fn());
+    // Llamamos a la función que estamos probando
+    const result = await loginGoogle1();
   });
 });

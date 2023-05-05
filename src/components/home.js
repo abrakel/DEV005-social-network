@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
+
 import {
-  GoogleAuthProvider, signInWithPopup, getAuth,
-} from 'firebase/auth';
-import {
+  loginGoogle1,
   revision,
 } from '../lib/auth';
 
@@ -14,9 +13,6 @@ function home(navigateTo) {
   form.class = 'form1';
   const title = document.createElement('h1');
   const division = document.createElement('div');
-  const forgetPass = document.createElement('button');
-  forgetPass.textContent = 'Olvidé contraseña';
-  forgetPass.setAttribute('class', 'forgetPass-b');
   division.setAttribute('class', 'divhome');
 
   /* ----------------Imagenes -------------------------*/
@@ -41,7 +37,9 @@ function home(navigateTo) {
     const email = mail.value;
     if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
       // eslint-disable-next-line no-alert
-      alert('Introduzca una dirección de correo electrónico válida');
+      const mensaje = document.createElement('span');
+      mensaje.textContent = ('Introduzca una dirección de correo electrónico válida', mail);
+      /* alert('Introduzca una dirección de correo electrónico válida'); */
       mail.value = '';
     }
   });
@@ -51,11 +49,31 @@ function home(navigateTo) {
   /* ------------------ Contraseña ---------------------*/
   const passUser = document.createElement('label');
   const password = document.createElement('input');
+  passUser.textContent = 'Contraseña:';
   password.id = 'password1';
   password.minLength = 6;
   password.maxLength = 10;
   password.type = 'password';
   password.placeholder = 'Enter a password';
+
+  const showPasswordBtn = document.createElement('button');
+  showPasswordBtn.setAttribute('class', 'showPasswordBtn-b');
+  showPasswordBtn.textContent = 'Mostrar contraseña';
+
+  // Añadimos el botón a la etiqueta de la contraseña
+  passUser.appendChild(showPasswordBtn);
+
+  // Añadimos el EventListener al botón
+  showPasswordBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (password.type === 'password') {
+      password.type = 'text';
+      showPasswordBtn.textContent = 'Ocultar contraseña';
+    } else {
+      password.type = 'password';
+      showPasswordBtn.textContent = 'Mostrar contraseña';
+    }
+  });
 
   /* ---------------- Iniciar sesión-------------------------*/
   const login = document.createElement('button');
@@ -63,17 +81,14 @@ function home(navigateTo) {
   login.setAttribute('class', 'loginb');
   login.textContent = 'INICIAR SESIÓN';
   mailUser.textContent = 'Correo electrónico:';
-  passUser.textContent = 'Contraseña:';
   title.textContent = 'Patitas.com';
   login.addEventListener('click', (e) => {
     e.preventDefault();
     revision(mail.value, password.value)
       .then((user) => {
         navigateTo('/muro');
-        // eslint-disable-next-line no-console
         console.log(user);
       }).catch((error) => {
-        // eslint-disable-next-line no-console
         console.error('Tienes un error', error);
         mail.value = '';
         password.value = '';
@@ -87,39 +102,21 @@ function home(navigateTo) {
 
   loginGoogle.addEventListener('click', async (e) => {
     e.preventDefault();
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // eslint-disable-next-line no-console
-        console.log(token);
-
-        const user = result.user;
-        console.log(user);
-
-        console.log(credential);
-        navigateTo('/muro');
-        // ...
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode === 'auth/user-not-found') {
-          errorMessage('El usuario no está registrado.');
-        } else if (errorCode === 'auth/wrong-password') {
-          errorMessage('La contraseña no es correcta.');
-        } else if (errorCode === 'auth/invalid-email') {
-          errorMessage('El correo electrónico no tiene el formato correcto.');
-        } else if (errorCode === 'auth/credential-already-in-use') {
-          errorMessage('Las credenciales ya están siendo utilizadas.');
-        } else if (errorCode === 'auth/network-request-failed') {
-          errorMessage('Ha ocurrido un error de red.');
-        } else {
-          console.log(errorMessage);
-        }
-      });
+    loginGoogle1().then(() => {
+      navigateTo('/muro');
+    }).catch((error) => {
+      // Handle Errors here.
+      const mensaje = document.createElement('span');
+      mensaje.textContent = 'Ha ocurrido un error';
+      if (error.code === 'auth/email-already-in-use') {
+        mensaje.textContent = 'Usuario existente';
+      } else if (error.code === 'auth/invalid-email') {
+        mensaje.textContent = 'Correo electrónico inválido';
+      } else if (error.code === 'auth/weak-password') {
+        mensaje.textContent = 'La contraseña debe tener al menos 6 caracteres';
+      }
+      console.log(mensaje.textContent);
+    });
   });
 
   section.append(img, form);
@@ -129,11 +126,12 @@ function home(navigateTo) {
     mail,
     passUser,
     password,
+    showPasswordBtn,
     division,
     loginGoogle,
     login,
   );
-  division.append(register, forgetPass);
+  division.append(register);
   return section;
 }
 
