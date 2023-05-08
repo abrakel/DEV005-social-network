@@ -14,6 +14,8 @@ function home(navigateTo) {
   const title = document.createElement('h1');
   const division = document.createElement('div');
   division.setAttribute('class', 'divhome');
+  const error1 = document.createElement('span');
+  error1.textContent = '';
 
   /* ----------------Imagenes -------------------------*/
   img.setAttribute('src', '../img/logo.jpg');
@@ -84,12 +86,11 @@ function home(navigateTo) {
   title.textContent = 'Patitas.com';
   login.addEventListener('click', (e) => {
     e.preventDefault();
-    revision(mail.value, password.value)
+    revision(mail.value, password.value, error1)
       .then((user) => {
         navigateTo('/muro');
         console.log(user);
-      }).catch((error) => {
-        console.error('Tienes un error', error);
+      }).catch(() => {
         mail.value = '';
         password.value = '';
       });
@@ -106,16 +107,15 @@ function home(navigateTo) {
       navigateTo('/muro');
     }).catch((error) => {
       // Handle Errors here.
-      const mensaje = document.createElement('span');
-      mensaje.textContent = 'Ha ocurrido un error';
+      error1.value = 'Ha ocurrido un error';
       if (error.code === 'auth/email-already-in-use') {
-        mensaje.textContent = 'Usuario existente';
+        error1.value = 'Usuario existente';
       } else if (error.code === 'auth/invalid-email') {
-        mensaje.textContent = 'Correo electrónico inválido';
+        error1.value = 'Correo electrónico inválido';
       } else if (error.code === 'auth/weak-password') {
-        mensaje.textContent = 'La contraseña debe tener al menos 6 caracteres';
+        error1.value = 'La contraseña debe tener al menos 6 caracteres';
       }
-      console.log(mensaje.textContent);
+      console.log(error1.value);
     });
   });
 
@@ -130,6 +130,7 @@ function home(navigateTo) {
     division,
     loginGoogle,
     login,
+    error1,
   );
   division.append(register);
   return section;

@@ -11,20 +11,20 @@ import {
 import { auth /* db */ } from './firebaseConfig.js';
 /* ---------------------------- Ingreso ---------------------------------------------*/
 
-export const revision = (email, password) => new Promise((resolve, reject) => {
+export const revision = (email, password, error1) => new Promise((resolve, reject) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       resolve(userCredential);
     })
     .catch((error) => {
-      let mensaje = 'Ha ocurrido un error';
+      error1.textContent = 'Ha ocurrido un error';
       if (error.code === 'auth/invalid-email') {
-        mensaje = 'Correo electrónico inválido';
+        error1.textContent = 'Correo electrónico inválido';
       } else if (error.code === 'auth/wrong-password') {
-        mensaje = 'La contraseña es incorrecta. Por favor, intenta de nuevo.';
+        error1.textContent = 'La contraseña es incorrecta. Por favor, intenta de nuevo.';
       }
-      reject(mensaje);
+      reject(error1.textContent);
     });
 });
 /* ---------------------------- Registro---------------------------------------------*/

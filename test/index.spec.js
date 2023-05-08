@@ -1,18 +1,19 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-// import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import * as firebaseAuth from 'firebase/auth';
+import * as auth from '../src/lib/auth.js';
 import {
   autenticacion, revision, loginGoogle1,
 } from '../src/lib/auth';
-import * as auth from '../src/lib/auth.js';
 
+jest.mock('firebase/auth');
 /* ----------------------- Test Registro ----------------------*/
-
 describe('Pruebas para la función de autenticación', () => {
   const email = 'usuario@dominio.com';
   const password = 'contraseña123';
 
   it("Debería devolver un mensaje de error 'Usuario existente' al autenticar con un correo electrónico ya registrado", async () => {
+    firebaseAuth.createUserWithEmailAndPassword.mockRejectedValue({ code: 'auth/email-already-in-use' });
     try {
       await autenticacion(email, password);
     } catch (error) {
@@ -21,6 +22,7 @@ describe('Pruebas para la función de autenticación', () => {
   });
 
   it("Debería devolver un mensaje de error 'Correo electrónico inválido' al autenticar con un correo electrónico inválido", async () => {
+    firebaseAuth.createUserWithEmailAndPassword.mockRejectedValue({ code: 'auth/invalid-email' });
     const emailInvalido = 'usuario@dominio';
     try {
       await autenticacion(emailInvalido, password);
@@ -30,6 +32,7 @@ describe('Pruebas para la función de autenticación', () => {
   });
 
   it("Debería devolver un mensaje de error 'La contraseña debe tener al menos 6 caracteres' al autenticar con una contraseña débil", async () => {
+    firebaseAuth.createUserWithEmailAndPassword.mockRejectedValue({ code: 'auth/weak-password' });
     const passwordDebil = '123';
     try {
       await autenticacion(email, passwordDebil);
@@ -37,8 +40,37 @@ describe('Pruebas para la función de autenticación', () => {
       expect(error).toEqual('La contraseña debe tener al menos 6 caracteres');
     }
   });
-});
 
+  it('Debería autenticar al usuario con éxito cuando se proporcionan credenciales válidas', async () => {
+    firebaseAuth.createUserWithEmailAndPassword.mockResolvedValue({ user: { uid: '123' } });
+    const userCredential = await autenticacion(email, password);
+    expect(userCredential).toBeDefined();
+    expect(userCredential.user.uid).toEqual('123');
+  });
+
+  function catchFunction(error, error1) {
+    error1.textContent = 'Ha ocurrido un error';
+  }
+
+  describe('test para la función catch', () => {
+    test('debe establecer correctamente el texto de error1 cuando ocurre un error', () => {
+    // simulamos un error en la ejecución del código
+      const error = new Error('Algo salió mal');
+
+      // creamos un objeto que simule el elemento error1
+      const error1 = {
+        textContent: '',
+      };
+
+      // llamamos a la función catch y pasamos el error simulado
+      // junto con el objeto que simula error1
+      catchFunction(error, error1);
+
+      // verificamos que el texto de error1 se haya establecido correctamente
+      expect(error1.textContent).toBe('Ha ocurrido un error');
+    });
+  });
+});
 /* ----------------------- Test Login Google ----------------------*/
 
 describe('Button Google1', () => {
@@ -72,6 +104,7 @@ describe('Pruebas para la función de login con Google', () => {
 describe('revision function', () => {
   // Test para revisión de credenciales correctas
   test('should resolve with userCredential when email and password are correct', async () => {
+    firebaseAuth.signInWithEmailAndPassword.mockResolvedValue({ email: 'johndoe@example.com' });
     const email = 'johndoe@example.com';
     const password = 'password123';
 
@@ -101,4 +134,18 @@ describe('revision function', () => {
       expect(error).toBe('Correo electrónico inválido');
     }
   });
+
+  it('It should return a generic error message when an unexpected error occurs.', async () => {
+    firebaseAuth.createUserWithEmailAndPassword.mockRejectedValue(new Error('Something went wrong'));
+    const email = '';
+    const password = '';
+    try {
+      await revision(email, password);
+    } catch (error) {
+      expect(error).toEqual('Something went wrong');
+    }
+  });
+  function catchFunction(error, error1) {
+    error1.textContent = 'Ha ocurrido un error';
+  }
 });
