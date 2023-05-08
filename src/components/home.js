@@ -2,17 +2,16 @@ import {
   loginGoogle1,
   revision,
 } from '../lib/auth';
+
 function home(navigateTo) {
   const section = document.createElement('section');
   // Elementos
   const img = document.createElement('img');
   const form = document.createElement('form');
-  form.class = 'form1';
+  form.className = 'form1';
   const title = document.createElement('h1');
+  title.className = 'i-r-title';
   const division = document.createElement('div');
-  const forgetPass = document.createElement('button');
-  forgetPass.textContent = 'Olvidé contraseña';
-  forgetPass.setAttribute('class', 'forgetPass-b');
   division.setAttribute('class', 'divhome');
   /* ----------------Imagenes -------------------------*/
   img.setAttribute('src', '../img/logo.jpg');
@@ -28,6 +27,7 @@ function home(navigateTo) {
   /* ------------------ Correo ---------------------*/
   const mailUser = document.createElement('label');
   const mail = document.createElement('input');
+  mail.className = 'mail-input';
   mail.id = 'mailUser';
   mail.placeholder = 'usuario@dominio.com';
   mail.addEventListener('blur', () => {
@@ -41,18 +41,44 @@ function home(navigateTo) {
   document.body.appendChild(mailUser);
   document.body.appendChild(mail);
   /* ------------------ Contraseña ---------------------*/
+  const divPassField = document.createElement('div');
+  divPassField.className = 'div-password-home';
   const passUser = document.createElement('label');
+  const divPass = document.createElement('div');
+  divPass.className = 'div-pass-eye';
   const password = document.createElement('input');
+  password.className = 'pass-input';
   password.id = 'password1';
   password.minLength = 6;
   password.maxLength = 10;
   password.type = 'password';
-  password.placeholder = 'Enter a password';
+  password.placeholder = 'Ingrese contraseña';
+
+  const showPasswordBtn = document.createElement('button');
+  showPasswordBtn.setAttribute('class', 'showPasswordBtn-b');
+  showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>';
+
+  // Añadimos el botón a la etiqueta de la contraseña
+  divPassField.append(passUser, divPass);
+  divPass.append(password, showPasswordBtn);
+
+  // Añadimos el EventListener al botón
+  showPasswordBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (password.type === 'password') {
+      password.type = 'text';
+      showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye-slash" style="color: #635994;"></i>';
+    } else {
+      password.type = 'password';
+      showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>';
+    }
+  });
+
   /* ---------------- Iniciar sesión-------------------------*/
   const login = document.createElement('button');
   login.setAttribute('id', 'login-b');
   login.setAttribute('class', 'loginb');
-  login.textContent = 'INICIAR SESIÓN';
+  login.textContent = 'Iniciar sesión';
   mailUser.textContent = 'Correo electrónico:';
   passUser.textContent = 'Contraseña:';
   title.textContent = 'Patitas.com';
@@ -73,8 +99,7 @@ function home(navigateTo) {
   /* ----------------Iniciar con google-------------------------*/
   const loginGoogle = document.createElement('button');
   loginGoogle.textContent = 'Inicia sesión con Google';
-  loginGoogle.setAttribute('id', 'loginGoogle-b');
-  loginGoogle.addEventListener('click', async (e) => {
+  loginGoogle.setAttribute('id', 'loginGoogle-b'); loginGoogle.addEventListener('click', async (e) => {
     e.preventDefault();
     loginGoogle1().then(() => {
       navigateTo('/muro');
@@ -96,19 +121,16 @@ function home(navigateTo) {
         console.log(errorMessage);
       }
     });
-  });
-  section.append(img, form);
+  }); section.append(img, form);
   form.append(
     title,
     mailUser,
     mail,
-    passUser,
-    password,
+    divPassField,
     division,
-    loginGoogle,
     login,
+    loginGoogle,
   );
-  division.append(register, forgetPass);
+  division.append(register);
   return section;
-}
-export default home;
+} export default home;
