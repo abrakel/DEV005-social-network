@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import * as firebaseAuth from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 import * as auth from '../src/lib/auth.js';
 import {
   autenticacion, revision, loginGoogle1,
@@ -54,7 +55,7 @@ describe('Pruebas para la función de autenticación', () => {
 
   describe('test para la función catch', () => {
     test('debe establecer correctamente el texto de error1 cuando ocurre un error', () => {
-    // simulamos un error en la ejecución del código
+      // simulamos un error en la ejecución del código
       const error = new Error('Algo salió mal');
 
       // creamos un objeto que simule el elemento error1
@@ -100,6 +101,23 @@ describe('Pruebas para la función de login con Google', () => {
   });
 });
 
+describe('loginGoogle1', () => {
+  it('should log access token, user, and credential to console', async () => {
+    const mockToken = 'mockAccessToken';
+    const mockUser = { uid: 'mockUserId' };
+    const mockCredential = { accessToken: mockToken };
+    const mockResult = { user: mockUser, credential: mockCredential };
+
+    // Mock the sign in with popup function
+    signInWithPopup.mockResolvedValueOnce(mockResult);
+
+    // Mock the credentialFromResult function
+    GoogleAuthProvider.credentialFromResult = jest.fn().mockReturnValue({ accessToken: mockToken });
+
+    // Call the function being tested
+    await loginGoogle1();
+  });
+});
 /* ----------------------- Test función revision ' ----------------------*/
 describe('revision function', () => {
   // Test para revisión de credenciales correctas
@@ -148,4 +166,50 @@ describe('revision function', () => {
   function catchFunction(error, error1) {
     error1.textContent = 'Ha ocurrido un error';
   }
+});
+
+describe('revision', () => {
+  jest.setTimeout(10000);
+
+  it('should reject with error message for invalid email', async () => {
+    const mockError = { code: 'auth/invalid-email' };
+    const error1 = document.createElement('div');
+
+    // Mock the signInWithEmailAndPassword function to throw the error
+    signInWithEmailAndPassword.mockRejectedValueOnce(mockError);
+
+    // Call the function being tested
+    await expect(revision('invalid-email@example.com', 'password', error1)).rejects.toThrow('Correo electrónico inválido');
+
+    // Expect the error1 element to have the expected text content
+    expect(error1.textContent).toBe('Correo electrónico inválido');
+  });
+
+  it('should reject with error message for wrong password', async () => {
+    const mockError = { code: 'auth/wrong-password' };
+    const error1 = document.createElement('div');
+
+    // Mock the signInWithEmailAndPassword function to throw the error
+    signInWithEmailAndPassword.mockRejectedValueOnce(mockError);
+
+    // Call the function being tested
+    await expect(revision('valid-email@example.com', 'wrong-password', error1)).rejects.toThrow('La contraseña es incorrecta. Por favor, intenta de nuevo.');
+
+    // Expect the error1 element to have the expected text content
+    expect(error1.textContent).toBe('La contraseña es incorrecta. Por favor, intenta de nuevo.');
+  });
+
+  it('should reject with generic error message for other errors', async () => {
+    const mockError = { code: 'auth/other-error' };
+    const error1 = document.createElement('div');
+
+    // Mock the signInWithEmailAndPassword function to throw the error
+    signInWithEmailAndPassword.mockRejectedValueOnce(mockError);
+
+    // Call the function being tested
+    await expect(revision('valid-email@example.com', 'password', error1)).rejects.toThrow('Ha ocurrido un error');
+
+    // Expect the error1 element to have the expected text content
+    expect(error1.textContent).toBe('Ha ocurrido un error');
+  });
 });
