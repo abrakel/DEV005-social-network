@@ -1,8 +1,13 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider, signInWithPopup,
 } from 'firebase/auth';
-import { auth } from './firebaseConfig.js';
+
+/* import {
+  collection, addDoc, getDocs, onSnapshot, doc as firestoreDoc, deleteDoc, getDoc,
+} from 'firebase/firestore'; */
+import { auth /* db */ } from './firebaseConfig.js';
 
 /* ---------------------------- Ingreso ---------------------------------------------*/
 
@@ -22,7 +27,6 @@ export const revision = (email, password) => new Promise((resolve, reject) => {
       reject(mensaje);
     });
 });
-
 /* ---------------------------- Registro---------------------------------------------*/
 
 export const autenticacion = (email, password) => new Promise((resolve, reject) => {
@@ -42,3 +46,15 @@ export const autenticacion = (email, password) => new Promise((resolve, reject) 
       reject(mensaje);
     });
 });
+/* ---------------------------- Ingreso con Google ---------------------------------------------*/
+export const loginGoogle1 = async () => {
+  const provider = new GoogleAuthProvider();
+  const result = await signInWithPopup(auth, provider);
+  const credential = GoogleAuthProvider.credentialFromResult(result);
+  const token = credential.accessToken;
+  // eslint-disable-next-line no-console
+  console.log(token);
+  const user = result.user;
+  console.log(user);
+  console.log(credential);
+};

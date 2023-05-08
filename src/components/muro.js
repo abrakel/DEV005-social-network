@@ -32,6 +32,7 @@ function muro(navigateTo) {
   titleInput.classList.add('task-input-title');
   titleInput.type = 'text';
   titleInput.name = 'title';
+  titleInput.setAttribute("autocomplete", "off");
   divFormName.append(titleLabel, titleInput);
 
   const divFormGender = document.createElement('div');
@@ -54,9 +55,10 @@ function muro(navigateTo) {
   const option2 = document.createElement('option');
   option2.text = 'Macho';
   option2.value = 'Macho';
-  option2.id = 'male-id'
+  option2.id = 'male-id';
   genderSelect.appendChild(option2);
   genderSelect.className = 'select-gender';
+  genderSelect.name = 'gender';
   divFormGender.append(genderLabel, genderSelect);
 
   const divFormAge = document.createElement('div');
@@ -65,7 +67,8 @@ function muro(navigateTo) {
   ageLabel.textContent = 'Edad:';
   const ageInput = document.createElement('input');
   ageInput.classList.add('task-age');
-  ageInput.name = 'age'
+  ageInput.name = 'age';
+  ageInput.setAttribute("autocomplete", "off");
   divFormAge.append(ageLabel, ageInput);
 
   const divFormDescription = document.createElement('div');
@@ -180,6 +183,8 @@ function muro(navigateTo) {
           submitBtn.setAttribute('data-editpostid', taskId);
           form.title.value = newTask.taskTitle;
           form.description.value = newTask.taskDescription;
+          form.gender.value = newTask.taskGender;
+          form.age.value = newTask.taskAge;
           const btnTaskForm = document.querySelector('#btnSend');
           btnTaskForm.innerText = 'Actualizar';
         });
