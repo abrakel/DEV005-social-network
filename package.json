@@ -39,11 +39,7 @@
     "node": ">=16.x"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "firebase": "^9.20.0"
-=======
     "firebase": "^9.19.1",
     "firebaseui": "^6.0.2"
->>>>>>> origin/alejandra
   }
 }

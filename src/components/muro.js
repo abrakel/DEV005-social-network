@@ -26,23 +26,23 @@ function muro(navigateTo) {
   const divFormName = document.createElement('div');
   divFormName.className = 'div-form-name';
   const titleLabel = document.createElement('label');
-  titleLabel.className = 'title-label-pets'
+  titleLabel.className = 'title-label-pets';
   titleLabel.textContent = 'Título';
   const titleInput = document.createElement('input');
   titleInput.classList.add('task-input-title');
   titleInput.type = 'text';
   titleInput.name = 'title';
-  titleInput.setAttribute("autocomplete", "off");
+  titleInput.setAttribute('autocomplete', 'off');
   divFormName.append(titleLabel, titleInput);
 
   const divFormGender = document.createElement('div');
-  divFormGender.className = 'div-form-gender'
+  divFormGender.className = 'div-form-gender';
   const genderLabel = document.createElement('label');
   genderLabel.textContent = 'Genero:';
   const genderSelect = document.createElement('select');
   const defaultOption = document.createElement('option');
-  defaultOption.value = "";
-  defaultOption.text = "selecciona una opción";
+  defaultOption.value = '';
+  defaultOption.text = 'selecciona una opción';
   defaultOption.disabled = true;
   defaultOption.selected = true;
   defaultOption.hidden = true;
@@ -50,8 +50,8 @@ function muro(navigateTo) {
   const option1 = document.createElement('option');
   option1.text = 'Hembra';
   option1.value = 'Hembra';
-  option1.id = 'female-id'
-  genderSelect.appendChild(option1); 
+  option1.id = 'female-id';
+  genderSelect.appendChild(option1);
   const option2 = document.createElement('option');
   option2.text = 'Macho';
   option2.value = 'Macho';
@@ -68,7 +68,7 @@ function muro(navigateTo) {
   const ageInput = document.createElement('input');
   ageInput.classList.add('task-age');
   ageInput.name = 'age';
-  ageInput.setAttribute("autocomplete", "off");
+  ageInput.setAttribute('autocomplete', 'off');
   divFormAge.append(ageLabel, ageInput);
 
   const divFormDescription = document.createElement('div');
@@ -94,7 +94,7 @@ function muro(navigateTo) {
   modal.appendChild(modalContent);
 
   function showModal(mensaje) {
-    modal.style.display = 'block'
+    modal.style.display = 'block';
     text.textContent = mensaje;
     close.addEventListener('click', () => {
       modal.style.display = 'none';
@@ -113,7 +113,7 @@ function muro(navigateTo) {
   submitBtn.textContent = 'Enviar';
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (titleInput.value === '' || descriptionInput.value === '' ) {
+    if (titleInput.value === '' || descriptionInput.value === '') {
       section.append(modal);
       showModal('Completa todos los campos para enviar');
     } else {
@@ -162,8 +162,6 @@ function muro(navigateTo) {
                               <button class="delete-button" data-id="${task.id}"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             </div>`;
-
-                            //codigo para que el corazon se pinte al poner me gusta: <i class="fa-solid fa-heart" style="color: #e80005;"></i>
 
       const btnsDelete = document.querySelectorAll('.delete-button');
       btnsDelete.forEach((btnDelete) => {
