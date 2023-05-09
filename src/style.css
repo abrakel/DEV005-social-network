@@ -1,22 +1,26 @@
 :root {
-    ---FontPrincipal: 'Inter', sans-serif;
+    ---FontPrincipal: 'Quicksand', sans-serif;
     ---colorFondo: rgb(255, 255, 255);
     ---colorRoot: #b3cfdb;
     ---ColorPrinicipal: #6663E1;
-    ---ColorSecundario: #2F2BEC;
+    ---ColorSecundario: #635994;
     ---ColorTerciario: black;
     ---ColorBotones: #5BA0BD;
+    /*fondo: #f3fbff
+    letra patitas: #635994
+    fondo form post: #b2acd2;*/
 }
 
 /*--------------GENERAL----------------------*/
 body {
+    display: flex;
     margin-left: 0;
     margin-top: 0;
     margin-bottom: 0;
     font-family: var(---FontPrincipal);
     width: 100vw;
     height: 100vh;
-    background-color: var(---colorRoot);
+    background-color: #f3fbff;
 }
 
 section {
@@ -28,13 +32,15 @@ section {
     
 }
 
-h1,
-.petregister {
+/*-------------------Página principal y registro--------------------------------*/
+.i-r-title {
     text-align: center;
-    color: var(---ColorPrinicipal);
+    color: #635994;
     font-weight: 700;
     font-size: 32px;
     margin-bottom: 10px;
+    font-family: 'Darumadrop One', cursive;
+    cursor:default;
 }
 
 .logo,
@@ -60,52 +66,116 @@ label {
     font-family: var(---FontPrincipal);
 }
 
-
-
-/* Estilos para el botón */
-button {
-    background-color: var(---ColorBotones);
-    color: var(---colorFondo);
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
+/* Estilos para el botón cuando el cursor está sobre él */
+#loginGoogle-b:hover,
+#login-b:hover,
+#loginTwitter:hover,
+#loginMicrosoft:hover {
+    background-color: rgb(180, 180, 180);
+    
 }
 
-/*-------------------Página Principal--------------------------------*/
-
-
-form {
+.form1, .register {
     display: flex;
     flex-direction: column;
     width: 320px;
     height: 400px;
     background-color: var(---colorFondo);
-    border-style: solid;
-    border-width: 0.8px;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-style: hidden;
     border-radius: 8px;
 }
 
+
 #loginGoogle-b,
 #login-b,
-input {
-    border-style: solid;
-    border-color: var(---ColorTerciario);
-    border-radius: 7px;
-    border-width: 0.5px;
+.mail-input,
+.pass-input,
+#mail, #password,
+#regist, .return-b {
+    border-style: hidden;
+    border-radius: 8px;
     height: 35px;
     font-size: 13px;
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Estilos para el botón cuando el cursor está sobre él */
+#loginGoogle-b:hover,
+#login-b:hover,
+#loginTwitter:hover,
+#loginMicrosoft:hover {
+    background-color: rgb(180, 180, 180);
+    
+}
+
 #loginGoogle-b,
-#login-b {
-    background-color: var(---ColorBotones);
+#login-b{
+    width: 80%;
+    margin-left: 35px;
+}
+
+
+.div-password-home{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mail-input,
+#mail, #password{
+    min-width: 244px;
+    border-style: solid;
+    border-width: 0.8px;
+    padding-left: 10px;
+    user-select: auto;
+}
+
+.mail-input, #mail{
+    margin-left: 35px;
+}
+
+.pass-input{
+    position: absolute;
+    min-width: 244px;
+    margin-right: 1%;
+    padding-left: 10px;
+    border-style: solid;
+    border-width: 0.8px;
+    border-radius: 8px;
+    border-color:  #E3E3E3;
+    user-select: auto;
+}
+
+.div-pass-eye{
+    display: flex;
+    margin-left: 35px;
+    min-width: 244px;
+    margin-bottom: 10px;
+}
+
+
+.showPasswordBtn-b{
+    width: 30px;
+    position: relative;
+    margin: 10px 40px auto auto;
+    font-size: 13px;
+    background: none;
+    border: hidden;
+    cursor: pointer;
+}
+
+#loginGoogle-b,
+#login-b, #regist, .return-b {
+    background-color: #b2acd2;
     margin-bottom: 0px;
-    margin-top: 7px;
+    margin-top: 15px;
     min-width: 250px;
     padding: 10px;
+    cursor: pointer;
 }
 
 /* Estilos para el botón cuando el cursor está sobre él */
@@ -128,58 +198,69 @@ input {
     min-width: 250px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 18px;
 }
 
-.register-b,
-.showPasswordBtn-b,
-.boton2 {
+.register-b {
     background-color: var(---colorFondo);
     border-style: none;
     color: var(---ColorSecundario);
     font-size: 11.5px;
     margin-top: -14px;
     padding: 0;
-    }
-    
- .passUser {
-  display: inline-block;
- text-align: right;
- }
-
-.boton2{
+    width: 50%;
+    margin-top: -12px;
     text-align: left;
+    cursor: pointer;
 }
 .showPasswordBtn-b{
     text-align: right;
     display: inline-block;
 }
-/*--------------------Página Registro----------------------*/
 
-.register {
-    border: var(---ColorTerciario);
-    border-style: solid;
-    border-width: 0.8px;
-    border-radius: 8px;
-    background-color: var(---colorFondo);
-    padding: 20px;
+/*-------------------Página Muro--------------------------------*/
+#task-list{
     display: flex;
     flex-direction: column;
-
+    width: 100%;
 }
 
-/* Estilos para los campos de entrada */
-#name,
-#lastname,
-#password,
-#mail,
-#mailUser,
-#passUser,
-#password1 {
-    padding: 10px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
+.div-title-return{
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto 5px auto;
+    width: 100%;
 }
 
+.title-wall{
+    display: flex;
+    width: 85%;
+    color: rgb(99, 89, 148);
+    font-family: 'Darumadrop One', cursive;
+    font-weight: 700;
+    font-size: 40px;
+    margin: 0 auto 0 0;
+}
+
+.button-return-home{
+    background: none;
+    border: hidden;
+    width: 15%;
+    text-align: right;
+    cursor: pointer;
+    font-size: 20px;
+    margin: auto auto 10px 6px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
 span {
   display: block;
   color: red;
@@ -188,58 +269,137 @@ span {
 }
 /*-------------------Página Muro--------------------------------*/
 
-/* Cards */
-.postcard {
-    flex-wrap: wrap;
+#formPost {
     display: flex;
+    flex-direction: column;
+    width: 85vw;
+    padding: 15px;
+    margin: 6%;
+    height: auto;
+    background-color: #b2acd2;
+    border-style: none;
     box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
     border-radius: 10px;
-    margin: 0 0 2rem 0;
+    max-width: 96.5%;
+}
+
+#male-id, #female-id{
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+}
+
+.divFormName, .divFormGender,
+.divFormAge {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    width: 100%;
+}
+
+.age-label-pets, .female-id-label,
+.male-id-label {
+    font-size: medium;
+    font-weight: 400;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.task-input-title, .task-age {
+    border-style: hidden;
+    border-radius: 7px;
+    font-size: 13px;
+    height: 20px;
+}
+
+.task-input-title{
+    display: flex;
+    height: 30px;
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+    font-size: medium;
+}
+
+.task-age{
+    width: 50px;
+}
+
+.task-description{
+    border-style: hidden;
+    display: flex;
+    width: 95.2%;
+    min-height: 100px;
+    border-radius: 7px;
+    margin-left: 8px;
+    resize: none;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    font-size: medium;
+    text-align: justify;
+}
+
+
+/* Estilos para el botón enviar */
+.send-b {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: auto;
+    margin: 3% 1% 1% auto;
+    border-style: hidden;
+}
+
+.div-form-name, .div-form-name,
+.div-form-age{
+    margin: 8px 8px 8px 8px;
+}
+
+.div-form-gender{
+    margin: 8px 8px 8px 0;
+}
+
+.container-post{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-radius: 10px;
+    margin: 25px 0 25px 0;
     overflow: hidden;
     position: relative;
-    color: #2f0a0a;
     background-color: var(---colorFondo);
-}
-
-.blue .postcard__bar {
-    background-color: #0076bd;
-}
-
-a,
-a:hover {
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
-}
-
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.postcard a {
-    color: inherit;
-}
-
-.postcard h1,
-.postcard .h1 {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-.postcard .postcard__title {
-    font-size: 1.75rem;
-}
-
-.postcard .postcard__img {
-    max-height: 180px;
     width: 100%;
-    object-fit: cover;
-    position: relative;
 }
 
-.postcard .postcard__bar {
+.title-post{
+    color: black;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: large;}
+
+.date-post{
+    font-size: 10px;
+    margin-bottom: 20px;
+}
+
+.title-post-wall{
+    margin: 20px auto 3px 0;
+}
+
+.title-post, .gender-post, 
+.age-post, .description-post{
+    display: flex;
+    margin: 0 6% 0 6%;
+    text-align: justify;
+}
+
+.age-post{
+    margin-top: 2px;
+}
+
+.postcard .postcard_bar {
     width: 50px;
     height: 10px;
     margin: 10px 0;
@@ -248,35 +408,35 @@ a:hover {
     transition: width 0.2s ease;
 }
 
-.postcard .postcard__text {
-    padding: 1.5rem;
-    position: relative;
+.description-post{
+    margin-top: 20px;
+}
+
+.buttons-post{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    position: relative;
+    width: 70%;
+    margin: 2% auto 20px auto;
+} 
+
+.line{
+    background-color: #b2acd2;
+    width: 90%;
+    height: 1px;
+    margin: 5px auto 5px auto;
+    opacity: 50%;
 }
 
-.postcard .postcard__preview-txt {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: justify;
-    height: 100%;
+.delete-button, .edit-button,
+.like-button{
+    width: 33%;
+    background-color: white;
+    color: black;
+    border-style: none;
+    cursor: pointer;
 }
 
-.postcard:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(-70deg, #424242, transparent 50%);
-    opacity: 1;
-    border-radius: 10px;
-}
-
-.postcard:hover .postcard__bar {
-    width: 100px;
-}
 
 @media screen and (min-width: 769px) {
     .postcard {
@@ -366,13 +526,9 @@ a:hover {
     width: 80%; /* ancho del contenido del modal */
   }
 
-
-
-
 /* COLORS */
 
-
-.blue .postcard__title:hover {
+/* .blue .postcard__title:hover {
     color: #0076bd;
 }
 
@@ -382,4 +538,4 @@ a:hover {
 
 .blue:nth-child(2n)::before {
     background-image: linear-gradient(30deg, rgba(0, 118, 189, 0.1), transparent 50%);
-}
+} */

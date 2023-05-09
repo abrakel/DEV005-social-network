@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import { autenticacion } from '../lib/auth';
+import showPasswordBtn from './home.js';
 
 function registro(navigateTo) {
   const section = document.createElement('section');
@@ -10,8 +11,8 @@ function registro(navigateTo) {
   const form1 = document.createElement('div');
   form1.classList.add('register');
 
-  const title = document.createElement('h2');
-  title.classList.add('petregister');
+  const title = document.createElement('h1');
+  title.classList.add('i-r-title');
 
   const img = document.createElement('img');
   img.id = 'imagen';
@@ -38,37 +39,45 @@ function registro(navigateTo) {
   document.body.appendChild(mail);
 
   /* ----------- Contraseña ---------------------*/
+  const divPassField = document.createElement('div');
+  divPassField.className = 'div-password-home';
+  const divPass = document.createElement('div');
+  divPass.className = 'div-pass-eye'
   const passwordLabel = document.createElement('label');
   const password = document.createElement('input');
   passwordLabel.textContent = 'Contraseña:';
   passwordLabel.setAttribute('for', 'password');
-  password.id = 'password';
+  password.id = 'password1';
+  password.className = 'pass-input';
   password.minLength = 6;
   password.maxLength = 10;
   password.type = 'password';
-  password.placeholder = 'Enter a password';
-
-  const botoncontraseña = document.createElement('button');
-  botoncontraseña.setAttribute('class', 'boton2');
-  botoncontraseña.textContent = 'Mostrar contraseña';
+  password.placeholder = 'Ingrese contraseña';
+  
+  const showPasswordBtn = document.createElement('button');
+  showPasswordBtn.setAttribute('class', 'showPasswordBtn-b');
+  showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>'
 
   // Añadimos el botón a la etiqueta de la contraseña
-  passwordLabel.appendChild(botoncontraseña);
+  divPassField.append(passwordLabel, divPass);
+  divPass.append(password, showPasswordBtn);
 
   // Añadimos el EventListener al botón
-  botoncontraseña.addEventListener('click', () => {
+  showPasswordBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     if (password.type === 'password') {
       password.type = 'text';
-      botoncontraseña.textContent = 'Ocultar contraseña';
+      showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye-slash" style="color: #635994;"></i>';
     } else {
       password.type = 'password';
-      botoncontraseña.textContent = 'Mostrar contraseña';
-    }
+      showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>';
+    };
   });
+
 
   /* ----------- Botón regreso ---------------------*/
   const buttonReturn = document.createElement('button');
-  buttonReturn.id = 'back';
+  buttonReturn.className = 'return-b';
   buttonReturn.textContent = 'Regresar';
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -102,8 +111,7 @@ function registro(navigateTo) {
     mailLabel,
     mail,
     passwordLabel,
-    password,
-    botoncontraseña,
+    divPassField,
     register,
     buttonReturn,
   );
