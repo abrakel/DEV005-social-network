@@ -10,7 +10,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-import { db } from './firebaseConfig.js';
+import { auth, db } from './firebaseConfig.js';
 
 // guardar los datos en firebase en la coleccion tasks
 const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
@@ -21,12 +21,21 @@ const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
       taskAge,
       taskDescription,
       date: serverTimestamp(), // obtener la marca de tiempo del servidor de Firebase
+      likes: [],
     });
 
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
     console.error('Error adding document: ', e);
   }
+};
+
+export const getCurrentUserId = () => {
+  const user = auth.currentUser;
+  if (user) {
+    return user.uid;
+  }
+  return null;
 };
 
 // devuelve todos los documentos guardados en la coleccion tasks de la base de datos
@@ -67,7 +76,7 @@ export const deleteTask = async (id) => {
   }
 };
 
-const updateTask = async (id, updateTask) => {
+export const updateTask = async (id, updateTask) => {
   try {
     const taskRef = firestoreDoc(db, 'tasks', id);
     await updateDoc(taskRef, updateTask);
