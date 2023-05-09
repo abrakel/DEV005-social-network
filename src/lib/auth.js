@@ -23,6 +23,8 @@ export const revision = (email, password, error1) => new Promise((resolve, rejec
         error1.textContent = 'Correo electrónico inválido';
       } else if (error.code === 'auth/wrong-password') {
         error1.textContent = 'La contraseña es incorrecta. Por favor, intenta de nuevo.';
+      } else if (error.code === 'auth/user-not-found') {
+        error1.textContent = 'Usuario no existe, favor registrarse';
       }
       reject(error1.textContent);
     });

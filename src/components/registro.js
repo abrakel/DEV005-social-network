@@ -16,6 +16,8 @@ function registro(navigateTo) {
   const img = document.createElement('img');
   img.id = 'imagen';
   img.src = '../Img/logo.jpg';
+  const error1 = document.createElement('span');
+  error1.textContent = '';
 
   /* ----------- Correo ---------------------*/
   const mailLabel = document.createElement('label');
@@ -77,21 +79,14 @@ function registro(navigateTo) {
   register.id = 'regist';
   register.textContent = 'Registrarse';
   register.addEventListener('click', () => {
-    autenticacion(mail.value, password.value)
+    autenticacion(mail.value, password.value, error1)
       .then((userCredential) => {
         alert('El usuario se registro con exito');
         // Signed in
         const user = userCredential.user;
         user.textContent = '';
-        // ...
-        mail.value = '';
-        password.value = '';
       })
-      .catch((error) => {
-        const mensaje1 = document.createElement('span');
-        mensaje1.textContent = error;
-        mail.value = '';
-        password.value = '';
+      .catch(() => {
       });
 
     console.log('si sirvo');

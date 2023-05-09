@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 
 import {
@@ -40,9 +41,7 @@ function home(navigateTo) {
     if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
       // eslint-disable-next-line no-alert
       const mensaje = document.createElement('span');
-      mensaje.textContent = ('Introduzca una dirección de correo electrónico válida', mail);
-      /* alert('Introduzca una dirección de correo electrónico válida'); */
-      mail.value = '';
+      mensaje.textContent = ('Introduzca una dirección de correo electrónico válida');
     }
   });
   document.body.appendChild(mailUser);
@@ -118,7 +117,6 @@ function home(navigateTo) {
       console.log(error1.value);
     });
   });
-
   section.append(img, form);
   form.append(
     title,
