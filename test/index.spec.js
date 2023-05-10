@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import * as firebaseAuth from 'firebase/auth';
@@ -141,7 +143,6 @@ describe('revision function', () => {
       expect(error).toBe('La contraseña es incorrecta. Por favor, intenta de nuevo.');
     }
   });
-
   // Test para revisión de correo electrónico inválido
   test('should reject with "Correo electrónico inválido" message when email is invalid', async () => {
     const email = 'invalidemail';
@@ -153,19 +154,16 @@ describe('revision function', () => {
     }
   });
 
-  it('It should return a generic error message when an unexpected error occurs.', async () => {
+  it('should return a generic error message when an unexpected error occurs', async () => {
     firebaseAuth.createUserWithEmailAndPassword.mockRejectedValue(new Error('Something went wrong'));
     const email = '';
     const password = '';
     try {
       await revision(email, password);
     } catch (error) {
-      expect(error).toEqual('Something went wrong');
+      expect(error.message).toEqual('Something went wrong');
     }
   });
-  function catchFunction(error, error1) {
-    error1.textContent = 'Ha ocurrido un error';
-  }
 });
 
 describe('revision', () => {

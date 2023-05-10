@@ -1,7 +1,7 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
 import { autenticacion } from '../lib/auth';
-import showPasswordBtn from './home.js';
 
 function registro(navigateTo) {
   const section = document.createElement('section');
@@ -18,8 +18,8 @@ function registro(navigateTo) {
   img.id = 'imagen';
   img.src = '../Img/logo.jpg';
   const error1 = document.createElement('span');
+  error1.setAttribute('class', 'error');
   error1.textContent = '';
-
   /* ----------- Correo ---------------------*/
   const mailLabel = document.createElement('label');
   const mail = document.createElement('input');
@@ -30,9 +30,7 @@ function registro(navigateTo) {
   mail.addEventListener('blur', () => {
     const email = mail.value;
     if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
-      const mensaje = document.createElement('span');
-      mensaje.textContent = ('Introduzca una dirección de correo electrónico válida', mail);
-      mail.value = '';
+      error1.textContent = 'Introduzca una dirección de correo electrónico válidas';
     }
   });
   document.body.appendChild(mailLabel);
@@ -42,7 +40,7 @@ function registro(navigateTo) {
   const divPassField = document.createElement('div');
   divPassField.className = 'div-password-home';
   const divPass = document.createElement('div');
-  divPass.className = 'div-pass-eye'
+  divPass.className = 'div-pass-eye';
   const passwordLabel = document.createElement('label');
   const password = document.createElement('input');
   passwordLabel.textContent = 'Contraseña:';
@@ -53,10 +51,10 @@ function registro(navigateTo) {
   password.maxLength = 10;
   password.type = 'password';
   password.placeholder = 'Ingrese contraseña';
-  
+
   const showPasswordBtn = document.createElement('button');
   showPasswordBtn.setAttribute('class', 'showPasswordBtn-b');
-  showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>'
+  showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>';
 
   // Añadimos el botón a la etiqueta de la contraseña
   divPassField.append(passwordLabel, divPass);
@@ -71,9 +69,8 @@ function registro(navigateTo) {
     } else {
       password.type = 'password';
       showPasswordBtn.innerHTML = '<i class="fa-solid fa-eye" style="color: #635994;"></i>';
-    };
+    }
   });
-
 
   /* ----------- Botón regreso ---------------------*/
   const buttonReturn = document.createElement('button');
@@ -88,14 +85,15 @@ function registro(navigateTo) {
   register.id = 'regist';
   register.textContent = 'Registrarse';
   register.addEventListener('click', () => {
-    autenticacion(mail.value, password.value, error1)
+    autenticacion(mail.value, password.value)
       .then((userCredential) => {
-        alert('El usuario se registro con exito');
+        error1.textContent = 'El usuario se registro con exito';
         // Signed in
         const user = userCredential.user;
         user.textContent = '';
       })
       .catch(() => {
+        error1.textContent = '';
       });
 
     console.log('si sirvo');

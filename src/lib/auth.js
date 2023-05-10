@@ -5,10 +5,7 @@ import {
   GoogleAuthProvider, signInWithPopup,
 } from 'firebase/auth';
 
-/* import {
-  collection, addDoc, getDocs, onSnapshot, doc as firestoreDoc, deleteDoc, getDoc,
-} from 'firebase/firestore'; */
-import { auth /* db */ } from './firebaseConfig.js';
+import { auth } from './firebaseConfig.js';
 
 /* ---------------------------- Ingreso ---------------------------------------------*/
 
@@ -61,21 +58,4 @@ export const loginGoogle1 = async () => {
   const user = result.user;
   console.log(user);
   console.log(credential);
-};
-
-/* ---------------------------- Post ---------------------------------------------*/
-
-/* let editStatus = false;
-let id = '';
-
-const saveTask = async (taskTitle, taskDescription) => {
-  try {
-    const docRef = await addDoc(collection(db, 'tasks'), {
-      taskTitle,
-      taskDescription,
-    });
-    console.log('Document written with ID: ', docRef.id);
-  } catch (e) {
-    console.error('Error adding document: ', e);
-  }
 };

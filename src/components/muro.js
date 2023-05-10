@@ -1,11 +1,11 @@
+/* eslint-disable no-console */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable max-len */
+/* eslint-disable no-use-before-define */
+import { getAuth, signOut } from 'firebase/auth';
 import {
   submitForm, deleteTask, onGetTasks, getTask, updateTask, getCurrentUserId,
 } from '../lib/posts';
-
-import home from './home';
-
-/* eslint-disable no-console */
-/* eslint-disable no-restricted-globals */
 
 function muro(navigateTo) {
   const section = document.createElement('section');
@@ -13,14 +13,13 @@ function muro(navigateTo) {
   divTitleAndReturn.className = 'div-title-return';
   const title = document.createElement('h1');
   title.textContent = '🐾 Patitas.com';
-  title.className= 'title-wall';
+  title.className = 'title-wall';
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-return-home';
   const iconLogOut = document.createElement('i');
   iconLogOut.className = 'fa-solid fa-right-from-bracket';
-  iconLogOut.style.color= '#635994';
+  iconLogOut.style.color = '#635994';
   divTitleAndReturn.append(title, buttonReturn);
-  buttonReturn.appendChild(iconLogOut);
   buttonReturn.addEventListener('click', () => {
     const auth = getAuth();
     signOut(auth)
@@ -53,7 +52,7 @@ function muro(navigateTo) {
   titleInput.classList.add('task-input-title');
   titleInput.type = 'text';
   titleInput.name = 'title';
-  titleInput.setAttribute("autocomplete", "off");
+  titleInput.setAttribute('autocomplete', 'off');
   divFormName.append(titleInput);
 
   const divFormGender = document.createElement('div');
@@ -66,7 +65,7 @@ function muro(navigateTo) {
   genderFemale.name = 'radiobuttons';
   const labelFemale = document.createElement('label');
   labelFemale.setAttribute = ('for', 'female-id');
-  labelFemale.className ='female-id-label'
+  labelFemale.className = 'female-id-label';
   labelFemale.textContent = 'Hembra';
   const genderMale = document.createElement('input');
   genderMale.type = 'radio';
@@ -86,27 +85,28 @@ function muro(navigateTo) {
   ageLabel.textContent = 'Edad (años):';
   ageLabel.className = 'age-label-pets';
   const ageInput = document.createElement('input');
-  ageInput.max='25';
-  ageInput.min ='0'
+  ageInput.max = '25';
+  ageInput.min = '0';
   ageInput.value = '0';
-  ageInput.type= 'number';
+  ageInput.type = 'number';
   ageInput.classList.add('task-age');
   ageInput.name = 'age';
-  ageInput.setAttribute("autocomplete", "off");
+  ageInput.setAttribute('autocomplete', 'off');
   divFormAge.append(ageLabel, ageInput);
 
   const descriptionInput = document.createElement('textarea');
-  descriptionInput.addEventListener("input", function() {
+  // eslint-disable-next-line func-names
+  descriptionInput.addEventListener('input', function () {
     autoResize(this);
   });
   descriptionInput.placeholder = 'Ingrese la descripción';
   descriptionInput.classList.add('task-description');
   descriptionInput.name = 'description';
-  descriptionInput.setAttribute("autocomplete", "off");
+  descriptionInput.setAttribute('autocomplete', 'off');
 
   function autoResize(textarea) {
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 
   // modal post
@@ -123,7 +123,7 @@ function muro(navigateTo) {
   modal.appendChild(modalContent);
 
   function showModal(mensaje) {
-    modal.style.display = 'block'
+    modal.style.display = 'block';
     text.textContent = mensaje;
     close.addEventListener('click', () => {
       modal.style.display = 'none';
@@ -139,11 +139,11 @@ function muro(navigateTo) {
   const submitBtn = document.createElement('button');
   submitBtn.id = 'btnSend';
   submitBtn.type = 'submit';
-  submitBtn.className = 'send-b'
+  submitBtn.className = 'send-b';
   submitBtn.textContent = 'Enviar';
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (titleInput.value === '' || descriptionInput.value === '' ) {
+    if (titleInput.value === '' || descriptionInput.value === '') {
       section.append(modal);
       showModal('Completa todos los campos para enviar');
     } else {
@@ -152,6 +152,7 @@ function muro(navigateTo) {
       submitForm(editStatus, editPostId);
     }
   });
+
   // Agrega los elementos al formulario
   form.append(divFormName, divFormGender, divFormAge, descriptionInput, submitBtn);
 
@@ -161,29 +162,28 @@ function muro(navigateTo) {
 
   document.body.append(form, taskList);
 
-
   onGetTasks((querySnapshot) => {
     taskList.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const task = doc.data();
       task.id = doc.id;
-      //para obtener la fecha y hora del servidor de firebase en formato legible
-      if (task && task.date){
-      const dateObj = task.date.toDate();
-      const day = dateObj.getDate().toString().padStart(2, '0');
-      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-      const year = dateObj.getFullYear();
-      const hour = dateObj.getHours();
-      const min = dateObj.getMinutes().toString().padStart(2, '0');
-      const formattedDate = `${day}-${month}-${year} | ${hour}:${min}` ;
-      const taskTitle = task.taskTitle;
-      const taskDescription = task.taskDescription;
-      const taskGender = task.taskGender;
-      const taskAge = task.taskAge;
-      const userId = getCurrentUserId();
-      const isLiked = task.likes.find((id) => id === userId);
-      const likeClass = isLiked ? 'fa-solid' : 'fa-regular';
-      taskList.innerHTML += `<div class='container-post'>
+      // para obtener la fecha y hora del servidor de firebase en formato legible
+      if (task && task.date) {
+        const dateObj = task.date.toDate();
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const year = dateObj.getFullYear();
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes().toString().padStart(2, '0');
+        const formattedDate = `${day}-${month}-${year} | ${hour}:${min}`;
+        const taskTitle = task.taskTitle;
+        const taskDescription = task.taskDescription;
+        const taskGender = task.taskGender;
+        const taskAge = task.taskAge;
+        const userId = getCurrentUserId();
+        const isLiked = task.likes.find((id) => id === userId);
+        const likeClass = isLiked ? 'fa-solid' : 'fa-regular';
+        taskList.innerHTML += `<div class='container-post'>
                             <div class= 'title-post'>
                               <h2 class='title-post-wall'>${taskTitle}</h2>
                               <span class='date-post'>${formattedDate}</span>
@@ -208,12 +208,13 @@ function muro(navigateTo) {
                             </div>
                             </div>`;
 
-                            //codigo para que el corazon se pinte al poner me gusta: <i class="fa-solid fa-heart" style="color: #e80005;"></i>
-      };
+        // codigo para que el corazon se pinte al poner me gusta: <i class="fa-solid fa-heart" style="color: #e80005;"></i>
+      }
 
       const btnLike = document.querySelectorAll('.like-button');
       btnLike.forEach((btn) => {
         btn.addEventListener('click', async (e) => {
+          e.preventDefault();
           const taskId = btn.dataset.id;
           const userId = getCurrentUserId();
           const isLiked = task.likes.find((id) => id === userId);
@@ -234,6 +235,7 @@ function muro(navigateTo) {
       const btnsDelete = document.querySelectorAll('.delete-button');
       btnsDelete.forEach((btnDelete) => {
         btnDelete.addEventListener('click', async (e) => {
+          e.preventDefault();
           const taskId = btnDelete.dataset.id;
           await deleteTask(taskId);
         });
@@ -242,6 +244,7 @@ function muro(navigateTo) {
       const btnsEdit = document.querySelectorAll('.edit-button');
       btnsEdit.forEach((btnEdit) => {
         btnEdit.addEventListener('click', async (e) => {
+          e.preventDefault();
           const taskId = btnEdit.dataset.id;
           const newDoc = await getTask(taskId);
           const newTask = newDoc;

@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
 import {
   collection,
   addDoc,
@@ -12,8 +14,7 @@ import {
 
 import { auth, db } from './firebaseConfig.js';
 
-
-//guardar los datos en firebase en la coleccion tasks
+// guardar los datos en firebase en la coleccion tasks
 const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
   try {
     const docRef = await addDoc(collection(db, 'tasks'), {
@@ -21,12 +22,12 @@ const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
       taskGender,
       taskAge,
       taskDescription,
-      date: serverTimestamp(), //obtener la marca de tiempo del servidor de Firebase
+      date: serverTimestamp(), // obtener la marca de tiempo del servidor de Firebase
       likes: [],
     });
 
     console.log('Document written with ID: ', docRef.id);
-    } catch (e) {
+  } catch (e) {
     console.error('Error adding document: ', e);
   }
 };
@@ -39,13 +40,13 @@ export const getCurrentUserId = () => {
   return null;
 };
 
-//devuelve todos los documentos guardados en la coleccion tasks de la base de datos
+// devuelve todos los documentos guardados en la coleccion tasks de la base de datos
 const getTasks = async () => {
   const querySnapshot = await getDocs(collection(db, 'tasks'));
   return querySnapshot;
 };
 
-//obtener un documento especifico de la base de datos con id y traer sus datos
+// obtener un documento especifico de la base de datos con id y traer sus datos
 export const getTask = async (id) => {
   try {
     const docRef = firestoreDoc(db, 'tasks', id);
@@ -61,7 +62,7 @@ export const getTask = async (id) => {
   }
 };
 
-//para cambios en la coleccion tasks de la base de datos
+// para cambios en la coleccion tasks de la base de datos
 export const onGetTasks = (callback) => {
   const unsub = onSnapshot(collection(db, 'tasks'), callback);
   return unsub;
@@ -87,11 +88,11 @@ export const updateTask = async (id, updateTask) => {
   }
 };
 
-//postear
+// postear
 export const submitForm = async (editStatus, id) => {
   const taskTitle = document.querySelector('.task-input-title');
   const taskGender = document.querySelector('input[name="radiobuttons"]:checked');
-  const taskAge = document.querySelector('.task-age')
+  const taskAge = document.querySelector('.task-age');
   const taskDescription = document.querySelector('.task-description');
 
   if (!editStatus) {
@@ -109,11 +110,10 @@ export const submitForm = async (editStatus, id) => {
 
   // Limpiar los campos del formulario
   taskTitle.value = '';
-  taskGender.checked = false; 
+  taskGender.checked = false;
   taskAge.value = '0';
   taskDescription.value = '';
 
   await getTasks();
   taskTitle.focus();
 };
-

@@ -31,7 +31,12 @@ section {
     height: 100vh;
     
 }
-
+#error {
+    display: block;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+  }
 /*-------------------Página principal y registro--------------------------------*/
 .i-r-title {
     text-align: center;
@@ -66,14 +71,6 @@ label {
     font-family: var(---FontPrincipal);
 }
 
-/* Estilos para el botón cuando el cursor está sobre él */
-#loginGoogle-b:hover,
-#login-b:hover,
-#loginTwitter:hover,
-#loginMicrosoft:hover {
-    background-color: rgb(180, 180, 180);
-    
-}
 
 .form1, .register {
     display: flex;
@@ -86,14 +83,15 @@ label {
     border-radius: 8px;
 }
 
-
 #loginGoogle-b,
 #login-b,
 .mail-input,
 .pass-input,
-#mail, #password,
-#regist, .return-b {
-    border-style: hidden;
+#mail,
+#password,
+#regist,
+.return-b {
+    border-style: none;
     border-radius: 8px;
     height: 35px;
     font-size: 13px;
@@ -101,21 +99,23 @@ label {
     margin-right: auto;
 }
 
+#loginGoogle-b,
+#login-b,
+#regist,
+.return-b {
+    background-color: #b2acd2;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    min-width: 250px;
+    padding: 10px;
+    cursor: pointer;
+}
+
 /* Estilos para el botón cuando el cursor está sobre él */
 #loginGoogle-b:hover,
-#login-b:hover,
-#loginTwitter:hover,
-#loginMicrosoft:hover {
+#login-b:hover {
     background-color: rgb(180, 180, 180);
-    
 }
-
-#loginGoogle-b,
-#login-b{
-    width: 80%;
-    margin-left: 35px;
-}
-
 
 .div-password-home{
     display: flex;
@@ -168,29 +168,6 @@ label {
     cursor: pointer;
 }
 
-#loginGoogle-b,
-#login-b, #regist, .return-b {
-    background-color: #b2acd2;
-    margin-bottom: 0px;
-    margin-top: 15px;
-    min-width: 250px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-/* Estilos para el botón cuando el cursor está sobre él */
-#loginGoogle-b:hover,
-#login-b:hover,
-#regist:hover,
-#back:hover {
-    background-color: #3e8e41;
-}
-
-
-input {
-    min-width: 244px;
-}
-
 
 
 .divhome {
@@ -206,16 +183,15 @@ input {
     border-style: none;
     color: var(---ColorSecundario);
     font-size: 11.5px;
-    margin-top: -14px;
     padding: 0;
     width: 50%;
     margin-top: -12px;
     text-align: left;
     cursor: pointer;
 }
-.showPasswordBtn-b{
+
+.forgetPass-b {
     text-align: right;
-    display: inline-block;
 }
 
 /*-------------------Página Muro--------------------------------*/
@@ -261,13 +237,6 @@ input {
     margin: 0 auto;
     padding: 0 15px;
 }
-span {
-  display: block;
-  color: red;
-  font-size: 12px;
-  text-align: center;
-}
-/*-------------------Página Muro--------------------------------*/
 
 #formPost {
     display: flex;
@@ -352,7 +321,7 @@ span {
     border-style: hidden;
 }
 
-.div-form-name, .div-form-name,
+.div-form-name,
 .div-form-age{
     margin: 8px 8px 8px 8px;
 }
@@ -525,17 +494,3 @@ span {
     border: 1px solid #888;
     width: 80%; /* ancho del contenido del modal */
   }
-
-/* COLORS */
-
-/* .blue .postcard__title:hover {
-    color: #0076bd;
-}
-
-.blue::before {
-    background-image: linear-gradient(-30deg, rgba(0, 118, 189, 0.1), transparent 50%);
-}
-
-.blue:nth-child(2n)::before {
-    background-image: linear-gradient(30deg, rgba(0, 118, 189, 0.1), transparent 50%);
-} */

@@ -1,8 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, query, orderBy } from 'firebase/firestore';
-
-
+import { getFirestore, collection } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCMA-XWyMc2_N3RuceKDj37LA6NLOEnAME',
@@ -19,4 +17,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const taskCollection = collection(db, 'tasks');
 
-export { app, auth, db, taskCollection };
+export {
+  app, auth, db, taskCollection,
+};
