@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import {
   loginGoogle1,
@@ -35,10 +36,18 @@ function home(navigateTo) {
   mail.className = 'mail-input';
   mail.id = 'mailUser';
   mail.placeholder = 'usuario@dominio.com';
+  const allowedDomains = ['gmail.com', 'hotmail.com'];
+  // Configura el evento blur para validar el correo electrónico
+  mail.placeholder = 'usuario@dominio.com';
   mail.addEventListener('blur', () => {
     const email = mail.value;
-    if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
-      error1.textContent = 'Introduzca una dirección de correo electrónico válidas';
+    const domain = email.split('@')[1]; // Obtén el dominio de correo electrónico
+    if (!allowedDomains.includes(domain)) {
+      error1.textContent = 'Por favor, ingrese una dirección de correo electrónico válida';
+      mail.value = ''; // Borra el correo electrónico
+      setTimeout(() => {
+        error1.textContent = ''; // Borra el mensaje de error después de 3 segundos
+      }, 3000);
     }
   });
   document.body.appendChild(mailUser);
@@ -51,6 +60,7 @@ function home(navigateTo) {
   divPass.className = 'div-pass-eye';
   const password = document.createElement('input');
   password.className = 'pass-input';
+  passUser.textContent = 'Contraseña:';
   password.id = 'password1';
   password.minLength = 6;
   password.maxLength = 10;
@@ -90,7 +100,8 @@ function home(navigateTo) {
         navigateTo('/muro');
         console.log(user);
       }).catch(() => {
-        error1.textContent = '';
+        mail.value = '';
+        password.value = '';
       });
   });
 
@@ -104,19 +115,23 @@ function home(navigateTo) {
     loginGoogle1().then(() => {
       navigateTo('/muro');
     }).catch((error) => {
-      // Handle Errors here.
-      error1.value = 'Ha ocurrido un error';
-      if (error.code === 'auth/email-already-in-use') {
-        error1.value = 'Usuario existente';
-      } else if (error.code === 'auth/invalid-email') {
-        error1.value = 'Correo electrónico inválido';
-      } else if (error.code === 'auth/weak-password') {
-        error1.value = 'La contraseña debe tener al menos 6 caracteres';
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      if (errorCode === 'auth/user-not-found') {
+        errorMessage('El usuario no está registrado.');
+      } else if (errorCode === 'auth/wrong-password') {
+        errorMessage('La contraseña no es correcta.');
+      } else if (errorCode === 'auth/invalid-email') {
+        errorMessage('El correo electrónico no tiene el formato correcto.');
+      } else if (errorCode === 'auth/credential-already-in-use') {
+        errorMessage('Las credenciales ya están siendo utilizadas.');
+      } else if (errorCode === 'auth/network-request-failed') {
+        errorMessage('Ha ocurrido un error de red.');
+      } else {
+        console.log(errorMessage);
       }
-      console.log(error1.value);
     });
   });
-
   section.append(img, form);
   form.append(
     title,
@@ -126,6 +141,7 @@ function home(navigateTo) {
     division,
     login,
     loginGoogle,
+    error1,
   );
   division.append(register);
   return section;

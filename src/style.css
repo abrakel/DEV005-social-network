@@ -31,7 +31,8 @@ section {
     height: 100vh;
     
 }
-#error {
+.error,
+.error1 {
     display: block;
     color: red;
     font-size: 12px;

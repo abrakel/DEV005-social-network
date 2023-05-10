@@ -35,18 +35,17 @@ export const autenticacion = (email, password) => new Promise((resolve, reject) 
       resolve(userCredential);
     })
     .catch((error) => {
-      let mensaje = 'Ha ocurrido un error';
+      let errorMessage = 'Ha ocurrido un error';
       if (error.code === 'auth/email-already-in-use') {
-        mensaje = 'Usuario existente';
+        errorMessage = 'Usuario existente';
       } else if (error.code === 'auth/invalid-email') {
-        mensaje = 'Correo electrónico inválido';
+        errorMessage = 'Correo electrónico inválido';
       } else if (error.code === 'auth/weak-password') {
-        mensaje = 'La contraseña debe tener al menos 6 caracteres';
+        errorMessage = 'La contraseña debe tener al menos 6 caracteres';
       }
-      reject(mensaje);
+      reject(errorMessage);
     });
 });
-
 /* ---------------------------- Ingreso---------------------------------------------*/
 export const loginGoogle1 = async () => {
   const provider = new GoogleAuthProvider();

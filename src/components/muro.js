@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable max-len */
@@ -20,6 +21,7 @@ function muro(navigateTo) {
   iconLogOut.className = 'fa-solid fa-right-from-bracket';
   iconLogOut.style.color = '#635994';
   divTitleAndReturn.append(title, buttonReturn);
+  buttonReturn.appendChild(iconLogOut);
   buttonReturn.addEventListener('click', () => {
     const auth = getAuth();
     signOut(auth)
@@ -32,7 +34,6 @@ function muro(navigateTo) {
         console.log(error);
       });
   });
-
   const container = document.createElement('div');
   container.classList.add('container');
 
@@ -235,9 +236,34 @@ function muro(navigateTo) {
       const btnsDelete = document.querySelectorAll('.delete-button');
       btnsDelete.forEach((btnDelete) => {
         btnDelete.addEventListener('click', async (e) => {
-          e.preventDefault();
           const taskId = btnDelete.dataset.id;
-          await deleteTask(taskId);
+          // Crear modal
+          const modal = document.createElement('div');
+          modal.classList.add('modal');
+          const modalContent = document.createElement('div');
+          modalContent.classList.add('modal-content');
+          const modalText = document.createElement('p');
+          modalText.innerText = '¿Está seguro de que desea eliminar esta tarea?';
+          const modalButtons = document.createElement('div');
+          modalButtons.classList.add('modal-buttons');
+          const confirmButton = document.createElement('button');
+          confirmButton.innerText = 'Eliminar';
+          confirmButton.addEventListener('click', async () => {
+            await deleteTask(taskId);
+            modal.remove();
+          });
+          const cancelButton = document.createElement('button');
+          cancelButton.innerText = 'Cancelar';
+          cancelButton.addEventListener('click', () => {
+            modal.remove();
+          });
+          modalButtons.appendChild(confirmButton);
+          modalButtons.appendChild(cancelButton);
+          modalContent.appendChild(modalText);
+          modalContent.appendChild(modalButtons);
+          modal.appendChild(modalContent);
+          document.body.appendChild(modal);
+          e.stopPropagation();
         });
       });
 

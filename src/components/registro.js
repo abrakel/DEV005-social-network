@@ -17,20 +17,27 @@ function registro(navigateTo) {
   const img = document.createElement('img');
   img.id = 'imagen';
   img.src = '../Img/logo.jpg';
-  const error1 = document.createElement('span');
-  error1.setAttribute('class', 'error');
-  error1.textContent = '';
+  const error = document.createElement('span');
+  error.setAttribute('class', 'error1');
+  error.textContent = '';
   /* ----------- Correo ---------------------*/
   const mailLabel = document.createElement('label');
   const mail = document.createElement('input');
   mailLabel.textContent = 'Correo electrónico:';
   mailLabel.setAttribute('for', 'mail');
   mail.id = 'mail';
+  const allowedDomains = ['gmail.com', 'hotmail.com'];
+  // Configura el evento blur para validar el correo electrónico
   mail.placeholder = 'usuario@dominio.com';
   mail.addEventListener('blur', () => {
     const email = mail.value;
-    if (!email.endsWith('@gmail.com') && !email.endsWith('@hotmail.com')) {
-      error1.textContent = 'Introduzca una dirección de correo electrónico válidas';
+    const domain = email.split('@')[1]; // Obtén el dominio de correo electrónico
+    if (!allowedDomains.includes(domain)) {
+      error.textContent = 'Por favor, ingrese una dirección de correo electrónico válida';
+      mail.value = ''; // Borra el correo electrónico
+      setTimeout(() => {
+        error.textContent = ''; // Borra el mensaje de error después de 3 segundos
+      }, 3000);
     }
   });
   document.body.appendChild(mailLabel);
@@ -84,20 +91,21 @@ function registro(navigateTo) {
   const register = document.createElement('button');
   register.id = 'regist';
   register.textContent = 'Registrarse';
-  register.addEventListener('click', () => {
-    autenticacion(mail.value, password.value)
+  register.addEventListener('click', (e) => {
+    e.preventDefault();
+    autenticacion(mail.value, password.value, error)
       .then((userCredential) => {
-        error1.textContent = 'El usuario se registro con exito';
+        error.textContent = 'El usuario se registró con éxito';
         // Signed in
         const user = userCredential.user;
         user.textContent = '';
       })
-      .catch(() => {
-        error1.textContent = '';
+      .catch((errorMessage) => {
+        error.textContent = errorMessage; // Mostrar mensaje de error en el elemento "error"
       });
-
-    console.log('si sirvo');
   });
+
+  console.log('si sirvo');
 
   title.textContent = 'Pet Registro';
 
@@ -112,6 +120,7 @@ function registro(navigateTo) {
     divPassField,
     register,
     buttonReturn,
+    error,
   );
   return section;
 }
