@@ -5,7 +5,7 @@
 /* eslint-disable no-use-before-define */
 import { getAuth, signOut } from 'firebase/auth';
 import {
-  submitForm, deleteTask, onGetTasks, getTask, updateTask, getCurrentUserId,
+  submitForm, deleteTask, onGetTasks, getTask, getCurrentUserId, getEmail, updateLike, updateDislike,
 } from '../lib/posts';
 
 function muro(navigateTo) {
@@ -15,6 +15,14 @@ function muro(navigateTo) {
   const title = document.createElement('h1');
   title.textContent = '🐾 Patitas.com';
   title.className = 'title-wall';
+
+  // Traer usuario de la data
+  const session = document.createElement('h5');
+  const sessionOn = getEmail();
+  session.textContent = sessionOn;
+  title.className = 'title-wall';
+
+  // Boton de cerrar sesión
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-return-home';
   const iconLogOut = document.createElement('i');
@@ -182,12 +190,14 @@ function muro(navigateTo) {
         const taskGender = task.taskGender;
         const taskAge = task.taskAge;
         const userId = getCurrentUserId();
+        const owner = task.owner;
         const isLiked = task.likes.find((id) => id === userId);
         const likeClass = isLiked ? 'fa-solid' : 'fa-regular';
         taskList.innerHTML += `<div class='container-post'>
                             <div class= 'title-post'>
                               <h2 class='title-post-wall'>${taskTitle}</h2>
                               <span class='date-post'>${formattedDate}</span>
+                              <span class= 'mail-post'>${owner}</span>
                             </div>
                             <div class='gender-post'>
                               <span>Genero:</span>
@@ -218,17 +228,10 @@ function muro(navigateTo) {
           e.preventDefault();
           const taskId = btn.dataset.id;
           const userId = getCurrentUserId();
-          const isLiked = task.likes.find((id) => id === userId);
-
-          if (isLiked) {
-            const index = task.likes.indexOf(userId);
-            task.likes.splice(index, 1);
-            await updateTask(taskId, task);
+          if (task.likes.includes(userId)) {
+            updateDislike(taskId, userId);
           } else {
-            task.likes.push(
-              userId,
-            );
-            await updateTask(taskId, task);
+            updateLike(taskId, userId);
           }
         });
       });
@@ -287,7 +290,7 @@ function muro(navigateTo) {
     });
   });
 
-  container.append(divTitleAndReturn, form, taskList);
+  container.append(divTitleAndReturn, session, form, taskList);
   section.appendChild(container);
   return section;
 }

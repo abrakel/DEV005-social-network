@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable max-len */
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
 import {
@@ -10,12 +12,14 @@ import {
   getDoc,
   updateDoc,
   serverTimestamp,
+  arrayUnion,
+  arrayRemove,
 } from 'firebase/firestore';
 
 import { auth, db } from './firebaseConfig.js';
 
 // guardar los datos en firebase en la coleccion tasks
-const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
+const saveTask = async (taskTitle, taskGender, taskAge, taskDescription, owner) => {
   try {
     const docRef = await addDoc(collection(db, 'tasks'), {
       taskTitle,
@@ -24,6 +28,8 @@ const saveTask = async (taskTitle, taskGender, taskAge, taskDescription) => {
       taskDescription,
       date: serverTimestamp(), // obtener la marca de tiempo del servidor de Firebase
       likes: [],
+      owner,
+      taskUserId: getCurrentUserId(),
     });
 
     console.log('Document written with ID: ', docRef.id);
@@ -36,6 +42,14 @@ export const getCurrentUserId = () => {
   const user = auth.currentUser;
   if (user) {
     return user.uid;
+  }
+  return null;
+};
+
+export const getEmail = () => {
+  const user = auth.currentUser;
+  if (user) {
+    return user.email;
   }
   return null;
 };
@@ -88,6 +102,17 @@ export const updateTask = async (id, updateTask) => {
   }
 };
 
+// Like
+export const updateLike = (idDoc, idUser) => {
+  const taskRef = firestoreDoc(db, 'tasks', idDoc);
+  updateDoc(taskRef, { likes: arrayUnion(idUser) });
+};
+
+export const updateDislike = (idDoc, idUser) => {
+  const taskRef = firestoreDoc(db, 'tasks', idDoc);
+  updateDoc(taskRef, { likes: arrayRemove(idUser) });
+};
+
 // postear
 export const submitForm = async (editStatus, id) => {
   const taskTitle = document.querySelector('.task-input-title');
@@ -96,7 +121,7 @@ export const submitForm = async (editStatus, id) => {
   const taskDescription = document.querySelector('.task-description');
 
   if (!editStatus) {
-    await saveTask(taskTitle.value, taskGender.value, taskAge.value, taskDescription.value);
+    await saveTask(taskTitle.value, taskGender.value, taskAge.value, taskDescription.value, getEmail());
   } else {
     await updateTask(id, {
       taskTitle: taskTitle.value,
