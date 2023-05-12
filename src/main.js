@@ -8,6 +8,7 @@ import './lib/firebaseConfig.js';
 import './lib/auth.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './lib/firebaseConfig.js';
+import { logicmuro } from './components/muro.js';
 
 // Root
 const root = document.getElementById('root');
@@ -44,7 +45,6 @@ window.onpopstate = () => {
 onAuthStateChanged(auth, (user) => {
   if (user) {
     navigateTo('/muro');
-    /* const uid = user.uid; */
   } else {
     navigateTo('/');
   }

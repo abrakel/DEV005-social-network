@@ -221,78 +221,90 @@ function muro(navigateTo) {
 
         // codigo para que el corazon se pinte al poner me gusta: <i class="fa-solid fa-heart" style="color: #e80005;"></i>
       }
-
-      const btnLike = document.querySelectorAll('.like-button');
-      btnLike.forEach((btn) => {
-        btn.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const taskId = btn.dataset.id;
-          const userId = getCurrentUserId();
-          if (task.likes.includes(userId)) {
-            updateDislike(taskId, userId);
-          } else {
-            updateLike(taskId, userId);
-          }
-        });
-      });
-
-      const btnsDelete = document.querySelectorAll('.delete-button');
-      btnsDelete.forEach((btnDelete) => {
-        btnDelete.addEventListener('click', async (e) => {
-          const taskId = btnDelete.dataset.id;
-          // Crear modal
-          const modal = document.createElement('div');
-          modal.classList.add('modal');
-          const modalContent = document.createElement('div');
-          modalContent.classList.add('modal-content');
-          const modalText = document.createElement('p');
-          modalText.innerText = '¿Está seguro de que desea eliminar esta tarea?';
-          const modalButtons = document.createElement('div');
-          modalButtons.classList.add('modal-buttons');
-          const confirmButton = document.createElement('button');
-          confirmButton.innerText = 'Eliminar';
-          confirmButton.addEventListener('click', async () => {
-            await deleteTask(taskId);
-            modal.remove();
-          });
-          const cancelButton = document.createElement('button');
-          cancelButton.innerText = 'Cancelar';
-          cancelButton.addEventListener('click', () => {
-            modal.remove();
-          });
-          modalButtons.appendChild(confirmButton);
-          modalButtons.appendChild(cancelButton);
-          modalContent.appendChild(modalText);
-          modalContent.appendChild(modalButtons);
-          modal.appendChild(modalContent);
-          document.body.appendChild(modal);
-          e.stopPropagation();
-        });
-      });
-
-      const btnsEdit = document.querySelectorAll('.edit-button');
-      btnsEdit.forEach((btnEdit) => {
-        btnEdit.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const taskId = btnEdit.dataset.id;
-          const newDoc = await getTask(taskId);
-          const newTask = newDoc;
-
-          submitBtn.setAttribute('data-editpostid', taskId);
-          form.title.value = newTask.taskTitle;
-          form.radiobuttons.value = newTask.taskGender;
-          form.age.value = newTask.taskAge;
-          form.description.value = newTask.taskDescription;
-          const btnTaskForm = document.querySelector('#btnSend');
-          btnTaskForm.innerText = 'Actualizar';
-        });
-      });
+      logicmuro(task, form, submitBtn);
     });
   });
-
   container.append(divTitleAndReturn, session, form, taskList);
   section.appendChild(container);
   return section;
+}
+
+export function logicmuro(task, form, submitBtn) {
+  // Boton like
+  const btnLike = document.querySelectorAll('.like-button');
+  console.log(btnLike);
+  btnLike.forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const taskId = btn.dataset.id;
+      const userId = getCurrentUserId();
+      console.log('id documento: ', taskId);
+      console.log(task.likes);
+      try {
+        if (!task.likes.includes(userId)) {
+          updateLike(taskId, userId);
+        } else {
+          updateDislike(taskId, userId);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  });
+
+  // Boton eliminar
+  const btnsDelete = document.querySelectorAll('.delete-button');
+  btnsDelete.forEach((btnDelete) => {
+    btnDelete.addEventListener('click', async (e) => {
+      const taskId = btnDelete.dataset.id;
+      // Crear modal
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+      const modalContent = document.createElement('div');
+      modalContent.classList.add('modal-content');
+      const modalText = document.createElement('p');
+      modalText.innerText = '¿Está seguro de que desea eliminar esta tarea?';
+      const modalButtons = document.createElement('div');
+      modalButtons.classList.add('modal-buttons');
+      const confirmButton = document.createElement('button');
+      confirmButton.innerText = 'Eliminar';
+      confirmButton.addEventListener('click', async () => {
+        await deleteTask(taskId);
+        modal.remove();
+      });
+      const cancelButton = document.createElement('button');
+      cancelButton.innerText = 'Cancelar';
+      cancelButton.addEventListener('click', () => {
+        modal.remove();
+      });
+      modalButtons.appendChild(confirmButton);
+      modalButtons.appendChild(cancelButton);
+      modalContent.appendChild(modalText);
+      modalContent.appendChild(modalButtons);
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+      e.stopPropagation();
+    });
+  });
+
+  // Boton editar
+  const btnsEdit = document.querySelectorAll('.edit-button');
+  btnsEdit.forEach((btnEdit) => {
+    btnEdit.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const taskId = btnEdit.dataset.id;
+      const newDoc = await getTask(taskId);
+      const newTask = newDoc;
+
+      submitBtn.setAttribute('data-editpostid', taskId);
+      form.title.value = newTask.taskTitle;
+      form.radiobuttons.value = newTask.taskGender;
+      form.age.value = newTask.taskAge;
+      form.description.value = newTask.taskDescription;
+      const btnTaskForm = document.querySelector('#btnSend');
+      btnTaskForm.innerText = 'Actualizar';
+    });
+  });
 }
 
 export default muro;

@@ -104,6 +104,7 @@ export const updateTask = async (id, updateTask) => {
 
 // Like
 export const updateLike = (idDoc, idUser) => {
+  console.log('ver valores que llegan: ', idDoc, idUser);
   const taskRef = firestoreDoc(db, 'tasks', idDoc);
   updateDoc(taskRef, { likes: arrayUnion(idUser) });
 };
