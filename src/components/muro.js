@@ -202,17 +202,18 @@ function muro(navigateTo) {
         btn.addEventListener('click', async (e) => {
           const taskId = btn.dataset.id;
           const userId = getCurrentUserId();
-          const isLiked = task.likes.find((id) => id === userId);
+          const newPost = await getTask(taskId);
+          const isLiked = newPost.likes.find((id) => id === userId);
 
           if (isLiked) {
-            const index = task.likes.indexOf(userId);
-            task.likes.splice(index, 1);
-            await updateTask(taskId, task);
+            const index = newPost.likes.indexOf(userId);
+            newPost.likes.splice(index, 1);
+            await updateTask(taskId, newPost);
           } else {
-            task.likes.push(
+            newPost.likes.push(
               userId,
             );
-            await updateTask(taskId, task);
+            await updateTask(taskId, newPost);
           }
         });
       });
