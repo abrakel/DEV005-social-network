@@ -20,7 +20,7 @@ function home(navigateTo) {
   error1.setAttribute('class', 'error');
   error1.textContent = '';
   /* ----------------Imagenes -------------------------*/
-  img.setAttribute('src', '../img/logo.jpg');
+  img.setAttribute('url', 'https://firebasestorage.googleapis.com/v0/b/patitas-91318.appspot.com/o/logo.jpg?alt=media&token=e8f6f7e2-042e-4cc3-a716-ca1f5b3511f7');
   img.setAttribute('alt', 'logo de Patitas.com');
   img.setAttribute('class', 'logo');
   /* ----------------Registrarse-------------------------*/
