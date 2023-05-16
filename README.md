@@ -23,7 +23,7 @@ Con base en los comentarios recopilados, hemos diseñado la interfaz de la plata
 
 ## 3. Descripción del producto
 
-![Patitas.com](/src/img/logo.jpg)
+![Patitas.com](./src/img/logo.jpg)
 
 Patitas.com es una plataforma de red social centrada en simplificar y promover la adopción de mascotas. Nuestra plataforma permite a los usuarios crear fácilmente una cuenta a través de nuestra página web o iniciar sesión de forma conveniente utilizando su cuenta de Google. Una vez dentro, los usuarios tienen la posibilidad de compartir publicaciones informativas sobre las mascotas que necesitan ser adoptadas y dar me gusta a estas.
 
