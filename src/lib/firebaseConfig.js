@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore, collection } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCMA-XWyMc2_N3RuceKDj37LA6NLOEnAME',
@@ -9,8 +10,11 @@ const firebaseConfig = {
   messagingSenderId: '921200296229',
   appId: '1:921200296229:web:df299b6a8def7ea1399acc',
   measurementId: 'G-114X4TQL1F',
-
 };
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const taskCollection = collection(db, 'tasks');
+
+export { app, auth, db, taskCollection };
