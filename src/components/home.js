@@ -6,7 +6,6 @@ import {
 } from '../lib/auth';
 
 function home(navigateTo) {
-
   const section = document.createElement('section');
   // Elementos
   const img = document.createElement('img');
@@ -146,6 +145,6 @@ function home(navigateTo) {
   );
   division.append(register);
   return section;
-};
+}
 
 export default home;

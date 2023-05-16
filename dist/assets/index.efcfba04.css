@@ -1,0 +1,553 @@
+:root {
+    ---FontPrincipal: 'Quicksand', sans-serif;
+    ---colorFondo: rgb(255, 255, 255);
+    ---colorRoot: #b3cfdb;
+    ---ColorPrinicipal: #6663E1;
+    ---ColorSecundario: #635994;
+    ---ColorTerciario: black;
+    ---ColorBotones: #5BA0BD;
+    /*fondo: #f3fbff
+    letra patitas: #635994
+    fondo form post: #b2acd2;*/
+}
+
+/*--------------GENERAL----------------------*/
+body {
+    display: flex;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: var(---FontPrincipal);
+    width: 100vw;
+    height: 100vh;
+    background-color: #f3fbff;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    
+}
+.error,
+.error1 {
+    display: block;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+  }
+/*-------------------Página principal y registro--------------------------------*/
+.i-r-title {
+    text-align: center;
+    color: #635994;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 10px;
+    font-family: 'Darumadrop One', cursive;
+    cursor:default;
+}
+
+.logo,
+#imagen {
+    border-radius: 100px;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    border: var(---ColorTerciario);
+    border-width: 0.5px;
+    border-style: solid;
+}
+
+label {
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 250px;
+    font-family: var(---FontPrincipal);
+}
+
+.form1, .register {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 400px;
+    background-color: var(---colorFondo);
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-style: hidden;
+    border-radius: 8px;
+}
+
+#loginGoogle-b,
+#login-b,
+.mail-input,
+.pass-input,
+#mail, #password,
+#regist, .return-b, .closeModal-b, 
+.confirm-delete-b, .cancel-delete-b {
+    border-style: hidden;
+    border-radius: 8px;
+    height: 35px;
+    font-size: 13px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginGoogle-b,
+#login-b,
+#regist,
+.return-b {
+    background-color: #b2acd2;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    min-width: 250px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Estilos para el botón cuando el cursor está sobre él */
+#loginGoogle-b:hover,
+#login-b:hover,
+#loginTwitter:hover,
+#loginMicrosoft:hover,
+.closeModal-b:hover,
+.send-b:hover, 
+.confirm-delete-b:hover, 
+.cancel-delete-b:hover {
+    background-color: rgb(228, 228, 228);
+    
+}
+
+#loginGoogle-b,
+#login-b{
+    width: 80%;
+    margin-left: 35px;
+}
+
+.div-password-home{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mail-input,
+#mail, #password{
+    min-width: 244px;
+    border-style: solid;
+    border-width: 0.8px;
+    padding-left: 10px;
+    user-select: auto;
+}
+
+.mail-input, #mail{
+    margin-left: 35px;
+}
+
+.pass-input{
+    position: absolute;
+    min-width: 244px;
+    margin-right: 1%;
+    padding-left: 10px;
+    border-style: solid;
+    border-width: 0.8px;
+    border-radius: 8px;
+    border-color:  #E3E3E3;
+    user-select: auto;
+}
+
+.div-pass-eye{
+    display: flex;
+    margin-left: 35px;
+    min-width: 244px;
+    margin-bottom: 10px;
+}
+
+
+.showPasswordBtn-b{
+    width: 30px;
+    position: relative;
+    margin: 10px 40px auto auto;
+    font-size: 13px;
+    background: none;
+    border: hidden;
+    cursor: pointer;
+}
+
+
+
+.divhome {
+    display: inline-flex;
+    min-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 18px;
+}
+
+.register-b {
+    background-color: var(---colorFondo);
+    border-style: none;
+    text-decoration: underline;
+    text-underline-position: under;
+    color: var(---ColorSecundario);
+    font-size: 11.5px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    padding: 0;
+    width: 50%;
+    margin-top: -12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.forgetPass-b {
+    text-align: right;
+}
+
+#regist{
+    margin-top: 30px;
+}
+
+/*-------------------Página Muro--------------------------------*/
+#task-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.div-title-return{
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto 5px auto;
+    width: 100%;
+}
+
+.title-wall{
+    display: flex;
+    width: 85%;
+    color: rgb(99, 89, 148);
+    font-family: 'Darumadrop One', cursive;
+    font-weight: 700;
+    font-size: 40px;
+    margin: 0 auto 0 0;
+}
+
+.mail-login{
+    margin: 10px auto 0 auto;
+}
+
+.button-return-home{
+    background: none;
+    border: hidden;
+    width: 15%;
+    text-align: right;
+    cursor: pointer;
+    font-size: 20px;
+    margin: auto auto 10px 6px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#formPost {
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+    padding: 15px;
+    margin: 6%;
+    height: auto;
+    background-color: #b2acd2;
+    border-style: none;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-radius: 10px;
+    max-width: 96.5%;
+}
+
+#male-id, #female-id{
+    width: 15px;
+    height: 15px;
+    margin-right: 3px;
+}
+
+.divFormName, .divFormGender,
+.divFormAge {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    width: 100%;
+}
+
+.age-label-pets, .female-id-label,
+.male-id-label {
+    font-size: medium;
+    font-weight: 400;
+    margin-right: 10px;
+    width: 100%;
+}
+
+.task-input-title, .task-age {
+    border-style: hidden;
+    border-radius: 7px;
+    font-size: 13px;
+    height: 20px;
+}
+
+.task-input-title{
+    display: flex;
+    height: 30px;
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+    font-size: medium;
+}
+
+.task-age{
+    width: 50px;
+}
+
+.task-description{
+    border-style: hidden;
+    display: flex;
+    width: 95.2%;
+    min-height: 100px;
+    border-radius: 7px;
+    margin-left: 8px;
+    resize: none;
+    overflow: hidden;
+    font-family: 'Quicksand', sans-serif;
+    font-size: medium;
+    text-align: justify;
+}
+
+
+/* Estilos para el botón enviar */
+.send-b, .closeModal-b, 
+.confirm-delete-b, .cancel-delete-b {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: auto;
+    margin: 3% 1% 1% auto;
+    border-style: hidden;
+}
+
+.div-form-name,
+.div-form-age{
+    margin: 8px 8px 8px 8px;
+}
+
+.div-form-gender{
+    margin: 8px 8px 8px 0;
+}
+
+.container-post{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+    border-radius: 10px;
+    margin: 25px 0 25px 0;
+    overflow: hidden;
+    position: relative;
+    background-color: var(---colorFondo);
+    width: 100%;
+}
+
+.title-post{
+    color: black;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: large;}
+
+.info-post{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.date-post{
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.title-post-wall{
+    margin: 20px auto 3px 0;
+}
+
+.title-post, .gender-post, 
+.age-post, .description-post{
+    display: flex;
+    margin: 0 6% 0 6%;
+    text-align: justify;
+}
+
+.age-post{
+    margin-top: 2px;
+}
+
+.postcard .postcard_bar {
+    width: 50px;
+    height: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #424242;
+    transition: width 0.2s ease;
+}
+
+.description-post{
+    margin-top: 20px;
+}
+
+.buttons-post{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 70%;
+    margin: 2% auto 20px auto;
+} 
+
+.line{
+    background-color: #b2acd2;
+    width: 90%;
+    height: 1px;
+    margin: 5px auto 5px auto;
+    opacity: 50%;
+}
+
+.delete-button, .edit-button,
+.like-div{
+    width: 33%;
+    background-color: white;
+    color: black;
+    border-style: none;
+    cursor: pointer;
+}
+
+.like-div{
+    text-align: left;
+    position: relative;
+}
+
+.like-button{
+    background-color: transparent;
+    color: black;
+    border-style: none;
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    height: 20px;
+    align-items: center;
+    z-index: 1;
+}
+
+.fa-heart{
+    margin-left: 32px;
+}
+
+.like-count{
+    display: flex;
+    position: relative;
+    width: 20px;
+    margin-left: 58px;
+}
+ 
+.red-heart::before {
+    color: #c42020;
+}
+
+/* Modal */
+.modal {
+    position: fixed; /* posición fija para cubrir toda la pantalla */
+    z-index: 1; /* z-index para estar por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto; /* para habilitar el desplazamiento */
+    background-color: rgba(0,0,0,0.5); /* color de fondo semi-transparente */
+  }
+  
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #b2acd2; /* color de fondo blanco */
+    /* margen superior e inferior y centrado horizontalmente */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #635994;
+    width: 80%; /* ancho del contenido del modal */
+    border-radius: 10px;
+    position: fixed;
+  }
+
+.closeModal-b{
+    margin: 20px auto 2px auto;
+    line-height: 10px;
+}
+
+.text-modal{
+    font-weight: 600;
+}
+
+.modal-buttons{
+    margin: 0 auto 2px auto;
+}
+
+.confirm-delete-b, .cancel-delete-b{
+    margin: 20px 6px 2px 6px;
+    line-height: 10px;
+}
+
+@media(min-width: 1024px) {
+    .title-wall{
+        font-size: 50px;
+    }
+    .mail-login{
+        font-size: 15px;
+    }
+    .button-return-home{
+        font-size: 30px;
+    }
+    .date-post{
+        font-size: 12px;
+    }
+    .container-post, .container {
+        min-width: 40vw;
+    }
+    .div-form-gender{
+        margin-left: 5px;
+        margin-bottom: 2px;
+    }
+    .div-form-age{
+        margin-left: 10px;
+    }
+    .task-description{
+        width: 97%;
+    }
+    .like-count{
+        position: relative;
+    }
+    .modal-content{
+        width: 30%;
+    }
+    
+
+
+}

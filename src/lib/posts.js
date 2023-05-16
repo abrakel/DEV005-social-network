@@ -18,8 +18,7 @@ import {
 
 import { auth, db } from './firebaseConfig.js';
 
-
-//guardar los datos en firebase en la coleccion tasks
+// guardar los datos en firebase en la coleccion tasks
 const saveTask = async (taskTitle, taskGender, taskAge, taskDescription, owner) => {
   try {
     const docRef = await addDoc(collection(db, 'tasks'), {
@@ -47,7 +46,6 @@ export const getCurrentUserId = () => {
   return null;
 };
 
-
 export const getEmail = () => {
   const user = auth.currentUser;
   if (user) {
@@ -56,7 +54,7 @@ export const getEmail = () => {
   return null;
 };
 
-//devuelve todos los documentos guardados en la coleccion tasks de la base de datos
+// devuelve todos los documentos guardados en la coleccion tasks de la base de datos
 const getTasks = async () => {
   const querySnapshot = await getDocs(collection(db, 'tasks'));
   return querySnapshot;
@@ -115,8 +113,7 @@ export const updateDislike = (idDoc, idUser) => {
   updateDoc(taskRef, { likes: arrayRemove(idUser) });
 };
 
-
-//postear
+// postear
 export const submitForm = async (editStatus, id) => {
   const taskTitle = document.querySelector('.task-input-title');
   const taskGender = document.querySelector('input[name="radiobuttons"]:checked');

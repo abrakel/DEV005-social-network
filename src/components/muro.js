@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
@@ -8,20 +9,15 @@ import {
   submitForm, deleteTask, onGetTasks, getTask, getCurrentUserId, getEmail, updateLike, updateDislike,
 } from '../lib/posts';
 
-import { getAuth, signOut } from 'firebase/auth';
-
-
-
 function muro(navigateTo) {
-
   const section = document.createElement('section');
   const divTitleAndReturn = document.createElement('div');
   divTitleAndReturn.className = 'div-title-return';
   const title = document.createElement('h1');
   title.textContent = '🐾 Patitas.com';
-  title.className= 'title-wall';
+  title.className = 'title-wall';
   const session = document.createElement('h5');
-  session.className = 'mail-login'
+  session.className = 'mail-login';
   const sessionOn = getEmail();
   session.textContent = sessionOn;
   const buttonReturn = document.createElement('button');
@@ -178,24 +174,24 @@ function muro(navigateTo) {
     querySnapshot.forEach((doc) => {
       const task = doc.data();
       task.id = doc.id;
-      //para obtener la fecha y hora del servidor de firebase en formato legible
-      if (task && task.date){
-      const dateObj = task.date.toDate();
-      const day = dateObj.getDate().toString().padStart(2, '0');
-      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-      const year = dateObj.getFullYear();
-      const hour = dateObj.getHours();
-      const min = dateObj.getMinutes().toString().padStart(2, '0');
-      const formattedDate = ` ${day}-${month}-${year}, ${hour}:${min}` ;
-      const taskTitle = task.taskTitle;
-      const taskDescription = task.taskDescription;
-      const taskGender = task.taskGender;
-      const taskAge = task.taskAge;
-      const userId = getCurrentUserId();
-      const owner = task.owner;
-      const isLiked = task.likes.includes(userId);
-      const likeClass = isLiked ? 'fa-solid red-heart' : 'fa-regular black-heart';
-      taskList.innerHTML += `<div class='container-post'>
+      // para obtener la fecha y hora del servidor de firebase en formato legible
+      if (task && task.date) {
+        const dateObj = task.date.toDate();
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const year = dateObj.getFullYear();
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes().toString().padStart(2, '0');
+        const formattedDate = ` ${day}-${month}-${year}, ${hour}:${min}`;
+        const taskTitle = task.taskTitle;
+        const taskDescription = task.taskDescription;
+        const taskGender = task.taskGender;
+        const taskAge = task.taskAge;
+        const userId = getCurrentUserId();
+        const owner = task.owner;
+        const isLiked = task.likes.includes(userId);
+        const likeClass = isLiked ? 'fa-solid red-heart' : 'fa-regular black-heart';
+        taskList.innerHTML += `<div class='container-post'>
                             <div class= 'title-post'>
                               <h2 class='title-post-wall'>${taskTitle}</h2>
                               <div class='info-post'>
@@ -224,12 +220,12 @@ function muro(navigateTo) {
                               <button class="delete-button" data-id="${task.id}"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             </div>`;
-
-      };
+      }
 
       const btnLike = document.querySelectorAll('.like-button');
       btnLike.forEach((btn) => {
         btn.addEventListener('click', async (e) => {
+          e.preventDefault();
           const taskId = btn.dataset.id;
           const taskData = await getTask(taskId);
           const userId = getCurrentUserId();
@@ -260,15 +256,15 @@ function muro(navigateTo) {
           const modalButtons = document.createElement('div');
           modalButtons.classList.add('modal-buttons');
           const confirmButton = document.createElement('button');
-          confirmButton.className = 'confirm-delete-b'
+          confirmButton.className = 'confirm-delete-b';
           confirmButton.innerText = 'Eliminar';
           confirmButton.addEventListener('click', async () => {
-            modal.style.display = 'none'; 
+            modal.style.display = 'none';
             await deleteTask(taskId);
           });
           const cancelButton = document.createElement('button');
           cancelButton.innerText = 'Cancelar';
-          cancelButton.className = 'cancel-delete-b'
+          cancelButton.className = 'cancel-delete-b';
           cancelButton.addEventListener('click', () => {
             modal.style.display = 'none';
           });
@@ -301,13 +297,13 @@ function muro(navigateTo) {
     });
   });
 
-      const btnsEdit = document.querySelectorAll('.edit-button');
-      btnsEdit.forEach((btnEdit) => {
-        btnEdit.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const taskId = btnEdit.dataset.id;
-          const newDoc = await getTask(taskId);
-          const newTask = newDoc;
+  const btnsEdit = document.querySelectorAll('.edit-button');
+  btnsEdit.forEach((btnEdit) => {
+    btnEdit.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const taskId = btnEdit.dataset.id;
+      const newDoc = await getTask(taskId);
+      const newTask = newDoc;
 
       submitBtn.setAttribute('data-editpostid', taskId);
       form.title.value = newTask.taskTitle;
