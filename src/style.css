@@ -72,7 +72,6 @@ label {
     font-family: var(---FontPrincipal);
 }
 
-
 .form1, .register {
     display: flex;
     flex-direction: column;
@@ -88,11 +87,10 @@ label {
 #login-b,
 .mail-input,
 .pass-input,
-#mail,
-#password,
-#regist,
-.return-b {
-    border-style: none;
+#mail, #password,
+#regist, .return-b, .closeModal-b, 
+.confirm-delete-b, .cancel-delete-b {
+    border-style: hidden;
     border-radius: 8px;
     height: 35px;
     font-size: 13px;
@@ -114,8 +112,21 @@ label {
 
 /* Estilos para el botón cuando el cursor está sobre él */
 #loginGoogle-b:hover,
-#login-b:hover {
-    background-color: rgb(180, 180, 180);
+#login-b:hover,
+#loginTwitter:hover,
+#loginMicrosoft:hover,
+.closeModal-b:hover,
+.send-b:hover, 
+.confirm-delete-b:hover, 
+.cancel-delete-b:hover {
+    background-color: rgb(228, 228, 228);
+    
+}
+
+#loginGoogle-b,
+#login-b{
+    width: 80%;
+    margin-left: 35px;
 }
 
 .div-password-home{
@@ -182,8 +193,12 @@ label {
 .register-b {
     background-color: var(---colorFondo);
     border-style: none;
+    text-decoration: underline;
+    text-underline-position: under;
     color: var(---ColorSecundario);
     font-size: 11.5px;
+    margin-top: 2px;
+    margin-bottom: 10px;
     padding: 0;
     width: 50%;
     margin-top: -12px;
@@ -193,6 +208,10 @@ label {
 
 .forgetPass-b {
     text-align: right;
+}
+
+#regist{
+    margin-top: 30px;
 }
 
 /*-------------------Página Muro--------------------------------*/
@@ -205,7 +224,7 @@ label {
 .div-title-return{
     display: flex;
     flex-direction: row;
-    margin: 20px auto 5px auto;
+    margin: 10px auto 5px auto;
     width: 100%;
 }
 
@@ -217,6 +236,10 @@ label {
     font-weight: 700;
     font-size: 40px;
     margin: 0 auto 0 0;
+}
+
+.mail-login{
+    margin: 10px auto 0 auto;
 }
 
 .button-return-home{
@@ -236,7 +259,7 @@ label {
     align-items: center;
     max-width: 350px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0;
 }
 
 #formPost {
@@ -310,7 +333,8 @@ label {
 
 
 /* Estilos para el botón enviar */
-.send-b {
+.send-b, .closeModal-b, 
+.confirm-delete-b, .cancel-delete-b {
     background-color: white;
     color: black;
     padding: 10px 20px;
@@ -349,9 +373,14 @@ label {
     font-weight: 500;
     font-size: large;}
 
+.info-post{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
 .date-post{
     font-size: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .title-post-wall{
@@ -399,7 +428,7 @@ label {
 }
 
 .delete-button, .edit-button,
-.like-button{
+.like-div{
     width: 33%;
     background-color: white;
     color: black;
@@ -407,73 +436,37 @@ label {
     cursor: pointer;
 }
 
-
-@media screen and (min-width: 769px) {
-    .postcard {
-        flex-wrap: inherit;
-    }
-
-    .postcard .postcard__title {
-        font-size: 2rem;
-    }
-
-    .postcard .postcard__img {
-        max-width: 300px;
-        max-height: 100%;
-        transition: transform 0.3s ease;
-    }
-
-    .postcard .postcard__text {
-        padding: 3rem;
-        width: 100%;
-    }
-
-    .postcard .media.postcard__text:before {
-        content: "";
-        position: absolute;
-        display: block;
-        background: var(---ColorTerciario);
-        top: -20%;
-        height: 130%;
-        width: 55px;
-    }
-
-    .postcard:hover .postcard__img {
-        transform: scale(1.1);
-    }
-
-    .postcard:nth-child(2n+1) {
-        flex-direction: row;
-    }
-
-    .postcard:nth-child(2n+0) {
-        flex-direction: row-reverse;
-    }
-
-    .postcard:nth-child(2n+1) .postcard__text::before {
-        left: -12px !important;
-        transform: rotate(4deg);
-    }
-
-    .postcard:nth-child(2n+0) .postcard__text::before {
-        right: -12px !important;
-        transform: rotate(-4deg);
-    }
+.like-div{
+    text-align: left;
+    position: relative;
 }
 
-@media screen and (min-width: 1024px) {
-    .postcard__text {
-        padding: 2rem 3.5rem;
-    }
+.like-button{
+    background-color: transparent;
+    color: black;
+    border-style: none;
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    height: 20px;
+    align-items: center;
+    z-index: 1;
+}
 
-    .postcard__text:before {
-        content: "";
-        position: absolute;
-        display: block;
-        top: -20%;
-        height: 130%;
-        width: 55px;
-    }
+.fa-heart{
+    margin-left: 32px;
+}
+
+.like-count{
+    display: flex;
+    position: relative;
+    width: 20px;
+    margin-left: 58px;
+}
+ 
+.red-heart::before {
+    color: #c42020;
 }
 
 /* Modal */
@@ -488,10 +481,73 @@ label {
     background-color: rgba(0,0,0,0.5); /* color de fondo semi-transparente */
   }
   
-  .modal-content {
-    background-color: #fefefe; /* color de fondo blanco */
-    margin: 15% auto; /* margen superior e inferior y centrado horizontalmente */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #b2acd2; /* color de fondo blanco */
+    /* margen superior e inferior y centrado horizontalmente */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #635994;
     width: 80%; /* ancho del contenido del modal */
+    border-radius: 10px;
+    position: fixed;
   }
+
+.closeModal-b{
+    margin: 20px auto 2px auto;
+    line-height: 10px;
+}
+
+.text-modal{
+    font-weight: 600;
+}
+
+.modal-buttons{
+    margin: 0 auto 2px auto;
+}
+
+.confirm-delete-b, .cancel-delete-b{
+    margin: 20px 6px 2px 6px;
+    line-height: 10px;
+}
+
+@media(min-width: 1024px) {
+    .title-wall{
+        font-size: 50px;
+    }
+    .mail-login{
+        font-size: 15px;
+    }
+    .button-return-home{
+        font-size: 30px;
+    }
+    .date-post{
+        font-size: 12px;
+    }
+    .container-post, .container {
+        min-width: 40vw;
+    }
+    .div-form-gender{
+        margin-left: 5px;
+        margin-bottom: 2px;
+    }
+    .div-form-age{
+        margin-left: 10px;
+    }
+    .task-description{
+        width: 97%;
+    }
+    .like-count{
+        position: relative;
+    }
+    .modal-content{
+        width: 30%;
+    }
+    
+
+
+}

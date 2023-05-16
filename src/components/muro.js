@@ -8,21 +8,22 @@ import {
   submitForm, deleteTask, onGetTasks, getTask, getCurrentUserId, getEmail, updateLike, updateDislike,
 } from '../lib/posts';
 
+import { getAuth, signOut } from 'firebase/auth';
+
+
+
 function muro(navigateTo) {
+
   const section = document.createElement('section');
   const divTitleAndReturn = document.createElement('div');
   divTitleAndReturn.className = 'div-title-return';
   const title = document.createElement('h1');
   title.textContent = '🐾 Patitas.com';
-  title.className = 'title-wall';
-
-  // Traer usuario de la data
+  title.className= 'title-wall';
   const session = document.createElement('h5');
+  session.className = 'mail-login'
   const sessionOn = getEmail();
   session.textContent = sessionOn;
-  title.className = 'title-wall';
-
-  // Boton de cerrar sesión
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-return-home';
   const iconLogOut = document.createElement('i');
@@ -124,9 +125,10 @@ function muro(navigateTo) {
   const modalContent = document.createElement('div');
   modalContent.setAttribute('class', 'modal-content');
   const text = document.createElement('span');
+  text.className = 'text-modal';
   text.textContent = '';
   const close = document.createElement('button');
-  close.setAttribute('button', 'closeModal-b');
+  close.setAttribute('class', 'closeModal-b');
   close.textContent = 'Cerrar';
   modalContent.append(text, close);
   modal.appendChild(modalContent);
@@ -176,35 +178,37 @@ function muro(navigateTo) {
     querySnapshot.forEach((doc) => {
       const task = doc.data();
       task.id = doc.id;
-      // para obtener la fecha y hora del servidor de firebase en formato legible
-      if (task && task.date) {
-        const dateObj = task.date.toDate();
-        const day = dateObj.getDate().toString().padStart(2, '0');
-        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-        const year = dateObj.getFullYear();
-        const hour = dateObj.getHours();
-        const min = dateObj.getMinutes().toString().padStart(2, '0');
-        const formattedDate = `${day}-${month}-${year} | ${hour}:${min}`;
-        const taskTitle = task.taskTitle;
-        const taskDescription = task.taskDescription;
-        const taskGender = task.taskGender;
-        const taskAge = task.taskAge;
-        const userId = getCurrentUserId();
-        const owner = task.owner;
-        const isLiked = task.likes.find((id) => id === userId);
-        const likeClass = isLiked ? 'fa-solid' : 'fa-regular';
-        taskList.innerHTML += `<div class='container-post'>
+      //para obtener la fecha y hora del servidor de firebase en formato legible
+      if (task && task.date){
+      const dateObj = task.date.toDate();
+      const day = dateObj.getDate().toString().padStart(2, '0');
+      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+      const year = dateObj.getFullYear();
+      const hour = dateObj.getHours();
+      const min = dateObj.getMinutes().toString().padStart(2, '0');
+      const formattedDate = ` ${day}-${month}-${year}, ${hour}:${min}` ;
+      const taskTitle = task.taskTitle;
+      const taskDescription = task.taskDescription;
+      const taskGender = task.taskGender;
+      const taskAge = task.taskAge;
+      const userId = getCurrentUserId();
+      const owner = task.owner;
+      const isLiked = task.likes.includes(userId);
+      const likeClass = isLiked ? 'fa-solid red-heart' : 'fa-regular black-heart';
+      taskList.innerHTML += `<div class='container-post'>
                             <div class= 'title-post'>
                               <h2 class='title-post-wall'>${taskTitle}</h2>
+                              <div class='info-post'>
+                              <span class= 'date-post'>${owner}</span>
                               <span class='date-post'>${formattedDate}</span>
-                              <span class= 'mail-post'>${owner}</span>
+                              </div>
                             </div>
                             <div class='gender-post'>
-                              <span>Genero:</span>
+                              <span>Genero:&nbsp;</span>
                               <span>${taskGender}</span>
                             </div>
                             <div class='age-post'>
-                              <span>Edad:</span>
+                              <span>Edad:&nbsp;</span>
                               <span>${taskAge}</span>
                             </div>
                             <div class='description-post'
@@ -212,70 +216,80 @@ function muro(navigateTo) {
                             </div>
                             <div class='line'></div>
                             <div class='buttons-post'>
+                            <div class='like-div'>
                               <button class='like-button' data-id="${task.id}"><i class="${likeClass} fa-heart"></i></button>
                               <span class='like-count'>${task.likes.length}</span>
+                            </div>
                               <button class="edit-button" data-id="${task.id}"><i class="fa-regular fa-pen-to-square"></i></button>
                               <button class="delete-button" data-id="${task.id}"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             </div>`;
 
-        // codigo para que el corazon se pinte al poner me gusta: <i class="fa-solid fa-heart" style="color: #e80005;"></i>
-      }
-      logicmuro(task, form, submitBtn);
-    });
-  });
-  container.append(divTitleAndReturn, session, form, taskList);
-  section.appendChild(container);
-  return section;
-}
+      };
 
-export function logicmuro(task, form, submitBtn) {
-  // Boton like
-  const btnLike = document.querySelectorAll('.like-button');
-  console.log(btnLike);
-  btnLike.forEach((btn) => {
-    btn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const taskId = btn.dataset.id;
-      const userId = getCurrentUserId();
-      console.log('id documento: ', taskId);
-      console.log(task.likes);
-      try {
-        if (!task.likes.includes(userId)) {
-          updateLike(taskId, userId);
-        } else {
-          updateDislike(taskId, userId);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  });
+      const btnLike = document.querySelectorAll('.like-button');
+      btnLike.forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const taskId = btn.dataset.id;
+          const taskData = await getTask(taskId);
+          const userId = getCurrentUserId();
 
-  // Boton eliminar
-  const btnsDelete = document.querySelectorAll('.delete-button');
-  btnsDelete.forEach((btnDelete) => {
-    btnDelete.addEventListener('click', async (e) => {
-      const taskId = btnDelete.dataset.id;
-      // Crear modal
-      const modal = document.createElement('div');
-      modal.classList.add('modal');
-      const modalContent = document.createElement('div');
-      modalContent.classList.add('modal-content');
-      const modalText = document.createElement('p');
-      modalText.innerText = '¿Está seguro de que desea eliminar esta tarea?';
-      const modalButtons = document.createElement('div');
-      modalButtons.classList.add('modal-buttons');
-      const confirmButton = document.createElement('button');
-      confirmButton.innerText = 'Eliminar';
-      confirmButton.addEventListener('click', async () => {
-        await deleteTask(taskId);
-        modal.remove();
+          console.log(taskData);
+
+          if (taskData.likes.includes(userId)) {
+            updateDislike(taskId, userId);
+          } else {
+            updateLike(taskId, userId);
+          }
+        });
       });
-      const cancelButton = document.createElement('button');
-      cancelButton.innerText = 'Cancelar';
-      cancelButton.addEventListener('click', () => {
-        modal.remove();
+
+      const btnsDelete = document.querySelectorAll('.delete-button');
+      btnsDelete.forEach((btnDelete) => {
+        btnDelete.addEventListener('click', async (e) => {
+          const taskId = btnDelete.dataset.id;
+
+          // Crear modal
+          const modal = document.createElement('div');
+          modal.classList.add('modal');
+          const modalContent = document.createElement('div');
+          modalContent.classList.add('modal-content');
+          const modalText = document.createElement('span');
+          modalText.className = 'text-modal';
+          modalText.innerText = '¿Está seguro de que desea eliminar esta publicación?';
+          const modalButtons = document.createElement('div');
+          modalButtons.classList.add('modal-buttons');
+          const confirmButton = document.createElement('button');
+          confirmButton.className = 'confirm-delete-b'
+          confirmButton.innerText = 'Eliminar';
+          confirmButton.addEventListener('click', async () => {
+            modal.style.display = 'none'; 
+            await deleteTask(taskId);
+          });
+          const cancelButton = document.createElement('button');
+          cancelButton.innerText = 'Cancelar';
+          cancelButton.className = 'cancel-delete-b'
+          cancelButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+          });
+
+          window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+              modal.style.display = 'none';
+            }
+          });
+
+          modalButtons.appendChild(confirmButton);
+          modalButtons.appendChild(cancelButton);
+
+          modalContent.appendChild(modalText);
+          modalContent.appendChild(modalButtons);
+
+          modal.appendChild(modalContent);
+          document.body.appendChild(modal);
+
+          e.stopPropagation();
+        });
       });
       modalButtons.appendChild(confirmButton);
       modalButtons.appendChild(cancelButton);
@@ -287,14 +301,13 @@ export function logicmuro(task, form, submitBtn) {
     });
   });
 
-  // Boton editar
-  const btnsEdit = document.querySelectorAll('.edit-button');
-  btnsEdit.forEach((btnEdit) => {
-    btnEdit.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const taskId = btnEdit.dataset.id;
-      const newDoc = await getTask(taskId);
-      const newTask = newDoc;
+      const btnsEdit = document.querySelectorAll('.edit-button');
+      btnsEdit.forEach((btnEdit) => {
+        btnEdit.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const taskId = btnEdit.dataset.id;
+          const newDoc = await getTask(taskId);
+          const newTask = newDoc;
 
       submitBtn.setAttribute('data-editpostid', taskId);
       form.title.value = newTask.taskTitle;
@@ -305,6 +318,10 @@ export function logicmuro(task, form, submitBtn) {
       btnTaskForm.innerText = 'Actualizar';
     });
   });
+
+  container.append(session, divTitleAndReturn, form, taskList);
+  section.appendChild(container);
+  return section;
 }
 
 export default muro;
