@@ -9,6 +9,7 @@
 * [5. Test de usabilidad](#5-test-ded-usabilidad)
 * [6. Equipo desarrollador](#6-equipo-desarrollador)
 
+
 ## 1. Preámbulo
 
 Las redes sociales se han convertido en una parte fundamental de nuestras vidas cotidianas, estas plataformas digitales permiten la comunicación y conexión entre personas alrededor del mundo, así como la creación y difusión de contenido multimedia.
@@ -23,7 +24,10 @@ Con base en los comentarios recopilados, hemos diseñado la interfaz de la plata
 
 ## 3. Descripción del producto
 
-![Patitas.com](./src/img/logo.jpg)
+<p align="center">
+  <img src="../DEV005-social-network/src/Img/logo.jpg" alt="logo-patitas" style="display: block; margin: 0 auto;" width="200" />
+</p>
+
 
 Patitas.com es una plataforma de red social centrada en simplificar y promover la adopción de mascotas. Nuestra plataforma permite a los usuarios crear fácilmente una cuenta a través de nuestra página web o iniciar sesión de forma conveniente utilizando su cuenta de Google. Una vez dentro, los usuarios tienen la posibilidad de compartir publicaciones informativas sobre las mascotas que necesitan ser adoptadas y dar me gusta a estas.
 
@@ -71,11 +75,12 @@ Se realizaron test de usabilidad para saber la opinión de usuarios sobre el uso
 
 ## 6. Equipo desarrollador
 
-* Adriana Armijos
-[GitHub Adriana Armijos](https://github.com/adrieli2307)
 
-* Alejandra Bravo
-[GitHub Alejandra Bravo](https://github.com/abrakel)
+* Adriana Armijos   
+👾[Github](https://github.com/adrieli2307)
 
-* Magenta Paredes
-[GitHub Magenta Paredes](https://github.com/Meowwuw)
+* Alejandra Bravo   
+👾[Github](https://github.com/abrakel)
+
+* Magenta Paredes   
+👾[Github](https://github.com/Meowwuw)

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-duplicates */
+/* eslint-disable import/order */
 import home from './components/home.js';
 import error from './components/error.js';
 import muro from './components/muro.js';

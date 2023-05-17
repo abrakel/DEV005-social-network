@@ -1,28 +1,30 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-shadow */
+/* eslint-disable no-console */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable max-len */
+/* eslint-disable no-use-before-define */
+import { getAuth, signOut } from 'firebase/auth';
 import {
   submitForm, deleteTask, onGetTasks, getTask, getCurrentUserId, getEmail, updateLike, updateDislike,
 } from '../lib/posts';
 
-import { getAuth, signOut } from 'firebase/auth';
-
-
-
 function muro(navigateTo) {
-
   const section = document.createElement('section');
   const divTitleAndReturn = document.createElement('div');
   divTitleAndReturn.className = 'div-title-return';
   const title = document.createElement('h1');
   title.textContent = '🐾 Patitas.com';
-  title.className= 'title-wall';
+  title.className = 'title-wall';
   const session = document.createElement('h5');
-  session.className = 'mail-login'
+  session.className = 'mail-login';
   const sessionOn = getEmail();
   session.textContent = sessionOn;
   const buttonReturn = document.createElement('button');
   buttonReturn.className = 'button-return-home';
   const iconLogOut = document.createElement('i');
   iconLogOut.className = 'fa-solid fa-right-from-bracket';
-  iconLogOut.style.color= '#635994';
+  iconLogOut.style.color = '#635994';
   divTitleAndReturn.append(title, buttonReturn);
   buttonReturn.appendChild(iconLogOut);
   buttonReturn.addEventListener('click', () => {
@@ -37,7 +39,6 @@ function muro(navigateTo) {
         console.log(error);
       });
   });
-
   const container = document.createElement('div');
   container.classList.add('container');
 
@@ -57,7 +58,7 @@ function muro(navigateTo) {
   titleInput.classList.add('task-input-title');
   titleInput.type = 'text';
   titleInput.name = 'title';
-  titleInput.setAttribute("autocomplete", "off");
+  titleInput.setAttribute('autocomplete', 'off');
   divFormName.append(titleInput);
 
   const divFormGender = document.createElement('div');
@@ -70,7 +71,7 @@ function muro(navigateTo) {
   genderFemale.name = 'radiobuttons';
   const labelFemale = document.createElement('label');
   labelFemale.setAttribute = ('for', 'female-id');
-  labelFemale.className ='female-id-label'
+  labelFemale.className = 'female-id-label';
   labelFemale.textContent = 'Hembra';
   const genderMale = document.createElement('input');
   genderMale.type = 'radio';
@@ -90,27 +91,28 @@ function muro(navigateTo) {
   ageLabel.textContent = 'Edad (años):';
   ageLabel.className = 'age-label-pets';
   const ageInput = document.createElement('input');
-  ageInput.max='25';
-  ageInput.min ='0'
+  ageInput.max = '25';
+  ageInput.min = '0';
   ageInput.value = '0';
-  ageInput.type= 'number';
+  ageInput.type = 'number';
   ageInput.classList.add('task-age');
   ageInput.name = 'age';
-  ageInput.setAttribute("autocomplete", "off");
+  ageInput.setAttribute('autocomplete', 'off');
   divFormAge.append(ageLabel, ageInput);
 
   const descriptionInput = document.createElement('textarea');
-  descriptionInput.addEventListener("input", function() {
+  // eslint-disable-next-line func-names
+  descriptionInput.addEventListener('input', function () {
     autoResize(this);
   });
   descriptionInput.placeholder = 'Ingrese la descripción';
   descriptionInput.classList.add('task-description');
   descriptionInput.name = 'description';
-  descriptionInput.setAttribute("autocomplete", "off");
+  descriptionInput.setAttribute('autocomplete', 'off');
 
   function autoResize(textarea) {
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 
   // modal post
@@ -128,7 +130,7 @@ function muro(navigateTo) {
   modal.appendChild(modalContent);
 
   function showModal(mensaje) {
-    modal.style.display = 'block'
+    modal.style.display = 'block';
     text.textContent = mensaje;
     close.addEventListener('click', () => {
       modal.style.display = 'none';
@@ -148,7 +150,7 @@ function muro(navigateTo) {
   submitBtn.textContent = 'Enviar';
   submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (titleInput.value === '' || descriptionInput.value === '' ) {
+    if (titleInput.value === '' || descriptionInput.value === '') {
       section.append(modal);
       showModal('Completa todos los campos para enviar');
     } else {
@@ -167,30 +169,29 @@ function muro(navigateTo) {
 
   document.body.append(form, taskList);
 
-
   onGetTasks((querySnapshot) => {
     taskList.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const task = doc.data();
       task.id = doc.id;
-      //para obtener la fecha y hora del servidor de firebase en formato legible
-      if (task && task.date){
-      const dateObj = task.date.toDate();
-      const day = dateObj.getDate().toString().padStart(2, '0');
-      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-      const year = dateObj.getFullYear();
-      const hour = dateObj.getHours();
-      const min = dateObj.getMinutes().toString().padStart(2, '0');
-      const formattedDate = ` ${day}-${month}-${year}, ${hour}:${min}` ;
-      const taskTitle = task.taskTitle;
-      const taskDescription = task.taskDescription;
-      const taskGender = task.taskGender;
-      const taskAge = task.taskAge;
-      const userId = getCurrentUserId();
-      const owner = task.owner;
-      const isLiked = task.likes.includes(userId);
-      const likeClass = isLiked ? 'fa-solid red-heart' : 'fa-regular black-heart';
-      taskList.innerHTML += `<div class='container-post'>
+      // para obtener la fecha y hora del servidor de firebase en formato legible
+      if (task && task.date) {
+        const dateObj = task.date.toDate();
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const year = dateObj.getFullYear();
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes().toString().padStart(2, '0');
+        const formattedDate = ` ${day}-${month}-${year}, ${hour}:${min}`;
+        const taskTitle = task.taskTitle;
+        const taskDescription = task.taskDescription;
+        const taskGender = task.taskGender;
+        const taskAge = task.taskAge;
+        const userId = getCurrentUserId();
+        const owner = task.owner;
+        const isLiked = task.likes.includes(userId);
+        const likeClass = isLiked ? 'fa-solid red-heart' : 'fa-regular black-heart';
+        taskList.innerHTML += `<div class='container-post'>
                             <div class= 'title-post'>
                               <h2 class='title-post-wall'>${taskTitle}</h2>
                               <div class='info-post'>
@@ -219,12 +220,12 @@ function muro(navigateTo) {
                               <button class="delete-button" data-id="${task.id}"><i class="fa-solid fa-trash"></i></button>
                             </div>
                             </div>`;
-
-      };
+      }
 
       const btnLike = document.querySelectorAll('.like-button');
       btnLike.forEach((btn) => {
         btn.addEventListener('click', async (e) => {
+          e.preventDefault();
           const taskId = btn.dataset.id;
           const taskData = await getTask(taskId);
           const userId = getCurrentUserId();
@@ -255,15 +256,15 @@ function muro(navigateTo) {
           const modalButtons = document.createElement('div');
           modalButtons.classList.add('modal-buttons');
           const confirmButton = document.createElement('button');
-          confirmButton.className = 'confirm-delete-b'
+          confirmButton.className = 'confirm-delete-b';
           confirmButton.innerText = 'Eliminar';
           confirmButton.addEventListener('click', async () => {
-            modal.style.display = 'none'; 
+            modal.style.display = 'none';
             await deleteTask(taskId);
           });
           const cancelButton = document.createElement('button');
           cancelButton.innerText = 'Cancelar';
-          cancelButton.className = 'cancel-delete-b'
+          cancelButton.className = 'cancel-delete-b';
           cancelButton.addEventListener('click', () => {
             modal.style.display = 'none';
           });
@@ -286,27 +287,26 @@ function muro(navigateTo) {
           e.stopPropagation();
         });
       });
+    });
 
-      const btnsEdit = document.querySelectorAll('.edit-button');
-      btnsEdit.forEach((btnEdit) => {
-        btnEdit.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const taskId = btnEdit.dataset.id;
-          const newDoc = await getTask(taskId);
-          const newTask = newDoc;
+    const btnsEdit = document.querySelectorAll('.edit-button');
+    btnsEdit.forEach((btnEdit) => {
+      btnEdit.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const taskId = btnEdit.dataset.id;
+        const newDoc = await getTask(taskId);
+        const newTask = newDoc;
 
-          submitBtn.setAttribute('data-editpostid', taskId);
-          form.title.value = newTask.taskTitle;
-          form.radiobuttons.value = newTask.taskGender;
-          form.age.value = newTask.taskAge;
-          form.description.value = newTask.taskDescription;
-          const btnTaskForm = document.querySelector('#btnSend');
-          btnTaskForm.innerText = 'Actualizar';
-        });
+        submitBtn.setAttribute('data-editpostid', taskId);
+        form.title.value = newTask.taskTitle;
+        form.radiobuttons.value = newTask.taskGender;
+        form.age.value = newTask.taskAge;
+        form.description.value = newTask.taskDescription;
+        const btnTaskForm = document.querySelector('#btnSend');
+        btnTaskForm.innerText = 'Actualizar';
       });
     });
   });
-
   container.append(session, divTitleAndReturn, form, taskList);
   section.appendChild(container);
   return section;

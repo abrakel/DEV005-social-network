@@ -17,4 +17,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const taskCollection = collection(db, 'tasks');
 
-export { app, auth, db, taskCollection };
+export {
+  app, auth, db, taskCollection,
+};

@@ -1,30 +1,30 @@
+/* eslint-disable no-console */
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider, signInWithPopup,
 } from 'firebase/auth';
 
-/* import {
-  collection, addDoc, getDocs, onSnapshot, doc as firestoreDoc, deleteDoc, getDoc,
-} from 'firebase/firestore'; */
-import { auth /* db */ } from './firebaseConfig.js';
+import { auth } from './firebaseConfig.js';
 
 /* ---------------------------- Ingreso ---------------------------------------------*/
 
-export const revision = (email, password) => new Promise((resolve, reject) => {
+export const revision = (email, password, error1) => new Promise((resolve, reject) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       resolve(userCredential);
     })
     .catch((error) => {
-      let mensaje = 'Ha ocurrido un error';
+      error1.textContent = 'Ha ocurrido un error';
       if (error.code === 'auth/invalid-email') {
-        mensaje = 'Correo electrónico inválido';
-      } if (error.code === 'auth/wrong-password') {
-        mensaje = 'La contraseña es incorrecta. Por favor, intenta de nuevo.';
+        error1.textContent = 'Correo electrónico inválido';
+      } else if (error.code === 'auth/wrong-password') {
+        error1.textContent = 'La contraseña es incorrecta. Por favor, intenta de nuevo.';
+      } else if (error.code === 'auth/user-not-found') {
+        error1.textContent = 'Usuario no existe, favor registrarse';
       }
-      reject(mensaje);
+      reject(error1.textContent);
     });
 });
 /* ---------------------------- Registro---------------------------------------------*/
@@ -35,18 +35,18 @@ export const autenticacion = (email, password) => new Promise((resolve, reject) 
       resolve(userCredential);
     })
     .catch((error) => {
-      let mensaje = 'Ha ocurrido un error';
+      let errorMessage = 'Ha ocurrido un error';
       if (error.code === 'auth/email-already-in-use') {
-        mensaje = 'Usuario existente';
+        errorMessage = 'Usuario existente';
       } else if (error.code === 'auth/invalid-email') {
-        mensaje = 'Correo electrónico inválido';
+        errorMessage = 'Correo electrónico inválido';
       } else if (error.code === 'auth/weak-password') {
-        mensaje = 'La contraseña debe tener al menos 6 caracteres';
+        errorMessage = 'La contraseña debe tener al menos 6 caracteres';
       }
-      reject(mensaje);
+      reject(errorMessage);
     });
 });
-/* ---------------------------- Ingreso con Google ---------------------------------------------*/
+/* ---------------------------- Ingreso---------------------------------------------*/
 export const loginGoogle1 = async () => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
