@@ -287,34 +287,26 @@ function muro(navigateTo) {
           e.stopPropagation();
         });
       });
-      modalButtons.appendChild(confirmButton);
-      modalButtons.appendChild(cancelButton);
-      modalContent.appendChild(modalText);
-      modalContent.appendChild(modalButtons);
-      modal.appendChild(modalContent);
-      document.body.appendChild(modal);
-      e.stopPropagation();
+    });
+
+    const btnsEdit = document.querySelectorAll('.edit-button');
+    btnsEdit.forEach((btnEdit) => {
+      btnEdit.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const taskId = btnEdit.dataset.id;
+        const newDoc = await getTask(taskId);
+        const newTask = newDoc;
+
+        submitBtn.setAttribute('data-editpostid', taskId);
+        form.title.value = newTask.taskTitle;
+        form.radiobuttons.value = newTask.taskGender;
+        form.age.value = newTask.taskAge;
+        form.description.value = newTask.taskDescription;
+        const btnTaskForm = document.querySelector('#btnSend');
+        btnTaskForm.innerText = 'Actualizar';
+      });
     });
   });
-
-  const btnsEdit = document.querySelectorAll('.edit-button');
-  btnsEdit.forEach((btnEdit) => {
-    btnEdit.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const taskId = btnEdit.dataset.id;
-      const newDoc = await getTask(taskId);
-      const newTask = newDoc;
-
-      submitBtn.setAttribute('data-editpostid', taskId);
-      form.title.value = newTask.taskTitle;
-      form.radiobuttons.value = newTask.taskGender;
-      form.age.value = newTask.taskAge;
-      form.description.value = newTask.taskDescription;
-      const btnTaskForm = document.querySelector('#btnSend');
-      btnTaskForm.innerText = 'Actualizar';
-    });
-  });
-
   container.append(session, divTitleAndReturn, form, taskList);
   section.appendChild(container);
   return section;
