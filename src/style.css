@@ -109,7 +109,32 @@ label {
     padding: 10px;
     cursor: pointer;
 }
+#loginGoogle-b,
+#login-b{
+    width: 80%;
+    margin-left: 35px;
+}
+.send-b, .closeModal-b, 
+.confirm-delete-b, .cancel-delete-b {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    width: auto;
+    margin: 3% 1% 1% auto;
+    border-style: hidden;
+}
 
+.confirm-delete-b, .cancel-delete-b{
+    margin: 20px 6px 2px 6px;
+    line-height: 10px;
+}
+.closeModal-b{
+    margin: 20px auto 2px auto;
+    line-height: 10px;
+}
 /* Estilos para el botón cuando el cursor está sobre él */
 #loginGoogle-b:hover,
 #login-b:hover,
@@ -123,11 +148,7 @@ label {
     
 }
 
-#loginGoogle-b,
-#login-b{
-    width: 80%;
-    margin-left: 35px;
-}
+
 
 .div-password-home{
     display: flex;
@@ -201,7 +222,6 @@ label {
     margin-bottom: 10px;
     padding: 0;
     width: 50%;
-    margin-top: -12px;
     text-align: left;
     cursor: pointer;
 }
@@ -333,18 +353,7 @@ label {
 
 
 /* Estilos para el botón enviar */
-.send-b, .closeModal-b, 
-.confirm-delete-b, .cancel-delete-b {
-    background-color: white;
-    color: black;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    width: auto;
-    margin: 3% 1% 1% auto;
-    border-style: hidden;
-}
+
 
 .div-form-name,
 .div-form-age{
@@ -497,10 +506,8 @@ label {
     position: fixed;
   }
 
-.closeModal-b{
-    margin: 20px auto 2px auto;
-    line-height: 10px;
-}
+
+
 
 .text-modal{
     font-weight: 600;
@@ -510,10 +517,7 @@ label {
     margin: 0 auto 2px auto;
 }
 
-.confirm-delete-b, .cancel-delete-b{
-    margin: 20px 6px 2px 6px;
-    line-height: 10px;
-}
+
 
 @media(min-width: 1024px) {
     .title-wall{

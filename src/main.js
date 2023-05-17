@@ -33,7 +33,7 @@ function navigateTo(hash) {
     root.appendChild(route.component(navigateTo));
   } else {
     navigateTo('/error');
-  }  
+  }
 }
 
 window.onpopstate = () => {
@@ -48,4 +48,3 @@ onAuthStateChanged(auth, (user) => {
     navigateTo('/');
   }
 });
-
